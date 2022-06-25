@@ -1,20 +1,12 @@
 {
-  "name": "trainee-3-22t2-fomo",
+  "name": "server",
   "version": "1.0.0",
-  "description": "better not angles",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/csesoc/trainee-3-22t2-fomo.git"
-  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/csesoc/trainee-3-22t2-fomo/issues"
-  },
-  "homepage": "https://github.com/csesoc/trainee-3-22t2-fomo#readme"
+  "license": "ISC"
 }
