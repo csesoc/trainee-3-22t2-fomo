@@ -1,7 +1,18 @@
-// Setup database
 import {client, fomodb, fomoEvents, fomoSocieties} from './database.js'
+
 import { findSocietyIdbyName } from './society.js';
 
+
+/**
+ * Finds events given specifc parameters in request
+ * 
+ * Parameters include:
+ * societyName: String
+ * societyId: Integer
+ * 
+ * @param {*} req 
+ * @returns
+ */
 export async function getEvents(req) {
     let query = {}
     let found = false
