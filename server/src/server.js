@@ -40,6 +40,7 @@ Example query:
 
 */
 router.get('/fomoGetEvents', async (req, res) => {
+    res.header("Access-Control-Allow-Origin", 'http://localhost:3000'); // Give access to front end server
     let items = await getEvents(req)
     if (items.length > 0) {
         res.status(200).send(items)
