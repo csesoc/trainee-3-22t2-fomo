@@ -19,10 +19,26 @@ code {
 .navBar {
   color: rgb(234, 244, 235);
   background-color: rgb(100,223,121); 
-  display: flex; 
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0px 25px 0px 25px;
+  align-items: center;
 }
 
-.logo { 
-  height: 80px;  
-  margin-left: 35px; 
+.navBar a{
+  color: black;  
+}
+
+.navBar ul{
+  padding: 0;
+  margin-right: 10px;
+  list-style: none;
+  display: flex;
+  gap: 20px; 
+} 
+
+.logo {   
+  height: 50px;    
+  margin: 10px; 
 }
