@@ -42,3 +42,49 @@ code {
   height: 50px;    
   margin: 10px; 
 }
+
+
+
+.followBox {
+  background-color: white;
+  color: #64DF79;
+
+  border-radius: 10px;
+  width: 280px;
+  height: 545px;
+  margin: 100px auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.followSoc {
+  background-color: #E0E0E0;
+  transition: background-color 400ms linear;
+  color: #988C8C;
+
+  height: 35px;
+  width: 80%;
+  margin-top: 5px;
+  border-radius: 10px;
+
+  font-size: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.followSoc p {
+  margin: 0;
+}
+
+.followSoc:hover {
+  background-color: #B9EEFF;
+  transition: background-color 400ms linear;
+}
+
+.followSoc-active {
+  background-color: #B9EEFF;
+}
