@@ -21,7 +21,7 @@ const FrontGeneral = () => {
         <li> <FontAwesomeIcon icon={faGear} /> </li>
       </ul>
       <InfoButton trigger={buttonPopup} setTrigger={setButtonPopup}>
-        <h5>fo mo no longer</h5>
+        <h5>Never feel FOMO again from your lack of organisation skills</h5>
       </InfoButton>
     </div>
   )
