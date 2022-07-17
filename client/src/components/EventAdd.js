@@ -3,6 +3,7 @@ import {Button, Modal, Typography, Box, Dialog, DialogContent, DialogTitle, Dial
 import { flexbox } from '@mui/system';
 import { LocalizationProvider, DesktopDatePicker, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { FaCalendarPlus } from 'react-icons/fa';
 const titleStyle = {
   margin: '10px',
 }
@@ -19,7 +20,7 @@ const EventAdd = () => {
   }
   return (
     <div>
-      <Button onClick={handleOpen}>Open dialog</Button>
+      <FaCalendarPlus onClick={handleOpen} /> 
       <Dialog open={open} onClose={handleClose}>
       <h2 style={titleStyle}>Add Event</h2>
       <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>

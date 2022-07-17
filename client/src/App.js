@@ -6,8 +6,7 @@ import FrontGeneral from './components/FrontGeneral';
 function App() {
   return (
     <div className="App">
-      <FrontGeneral />
-      <EventAdd /> 
+      <FrontGeneral /> 
     </div>
   );
 }
