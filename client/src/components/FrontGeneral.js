@@ -5,7 +5,7 @@ import { FaScroll } from "react-icons/fa"
 import EventAdd from './EventAdd';
 import InfoButton from './InfoButton';
 import './FrontGeneral.css'
-import { useState } from 'react';
+import { useState } from 'react'; 
 
 const FrontGeneral = () => {
   const [buttonPopup, setButtonPopup] = useState(false);
@@ -17,7 +17,9 @@ const FrontGeneral = () => {
         <li> <FaInfo onClick={() => setButtonPopup(true)}/> </li>
         <li> <FaScroll /> </li>
       </ul>
-      <InfoButton trigger={buttonPopup} setTrigger={setButtonPopup}/>
+      <InfoButton trigger={buttonPopup} setTrigger={setButtonPopup}>
+        <h5>fo mo no longer</h5>
+      </InfoButton>
     </div>
   )
 }
