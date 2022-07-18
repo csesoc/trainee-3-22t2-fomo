@@ -1,22 +1,6 @@
-import { useState } from 'react';
 import Soc from './Soc';
 
-const SocFollowing = () => {
-
-  const [societies, setSocieties] = useState([
-    {
-      id: 1,
-      name: "CSESOC",
-    },
-    {
-      id: 2,
-      name: "UNSW Esports Society",
-    },
-    {
-      id: 3,
-      name: "Dog-appreciation ting",
-    },
-  ]);
+const SocFollowing = ({ societies, delSociety }) => {
 
   const toggleActive = () => {
     const items = document.querySelectorAll(".followSoc");
@@ -35,7 +19,7 @@ const SocFollowing = () => {
     <div className='followBox' onMouseOver={() => toggleActive()}>
       <h1>Following</h1>
       {societies.map((society) => (
-        <Soc key={society.id} society={society} />
+        <Soc key={society.id} society={society} delSociety={delSociety} />
       ))}
     </div>
   )
