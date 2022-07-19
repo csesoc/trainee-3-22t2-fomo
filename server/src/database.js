@@ -9,5 +9,6 @@ let client = new MongoClient(url)
 let fomodb = client.db('fomodb')
 let fomoEvents = fomodb.collection('fomoEvents')
 let fomoSocieties = fomodb.collection('fomoSocieties')
+let fomoUsers = fomodb.collection('fomoUsers')
 
-export {client, fomodb, fomoEvents, fomoSocieties}
+export {client, fomodb, fomoEvents, fomoSocieties, fomoUsers}
