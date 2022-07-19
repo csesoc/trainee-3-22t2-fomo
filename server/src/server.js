@@ -4,9 +4,6 @@ import express from 'express';
 import eventRoutes from './routes/event.js'
 import societyRoutes from './routes/society.js'
 import authRoutes from './routes/auth.js'
-import { getEvents } from './routes/eventHelper.js'
-import { getUsers } from './routes/userHelper.js'
-import { register, login } from './routes/authHelper.js'
 import { verifyJWT } from './middleware/verifyJWT.js';
 import cors from 'cors';
 
