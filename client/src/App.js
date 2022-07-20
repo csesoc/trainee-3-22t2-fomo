@@ -8,10 +8,19 @@ import SearchBar from './components/SearchBar';
 import { useState } from 'react'
 import fullSocList from './components/TestData.json'
 
+import request from 'sync-request';
+
 function App() {
 
   // Societies currently following list
   const [societies, setSocieties] = useState([]);
+
+  const socList = request(
+    'GET',
+    `${url}:${port}` + '/societies/getAll',
+    {},
+  ).getBody();
+
 
   // Add a society to the following box
   const addSociety = (id) => {
