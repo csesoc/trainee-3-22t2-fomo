@@ -1,6 +1,7 @@
-import {client, fomodb, fomoEvents, fomoSocieties} from './database.js'
+// Get collections from database
+import {client, fomodb, fomoEvents, fomoSocieties} from '../database.js'
 
-import { findSocietyIdbyName } from './society.js';
+import { findSocietyIdbyName } from './societyHelper.js';
 
 
 /**
@@ -21,6 +22,8 @@ export async function getEvents(req) {
         if (societyId) {
             found = true
             query.societyId = societyId
+        } else {
+            return []
         }
     } else if (req.query.societyId) {
         query.societyId = parseInt(req.query.societyId)
@@ -29,6 +32,8 @@ export async function getEvents(req) {
     if (found) {
         let items = await fomoEvents.find(query).toArray()
         return items
+    } else {
+        let items = await fomoEvents.find().toArray()
+        return items
     }
-    return []
 }
