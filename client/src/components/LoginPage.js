@@ -2,7 +2,6 @@ import React from 'react'
 import { Typography, Button, Box, TextField } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './LoginPage.css'
-import { spacing } from '@mui/system';
 
 const LoginPage = () => {
 
@@ -30,7 +29,7 @@ const LoginPage = () => {
             title: {
                 fontFamily: 'Roboto',
                 fontWeight: 700,
-                fontSize: 100,
+                fontSize: '4rem',
             },
             inputheader: {
                 fontFamily: 'Roboto',
@@ -52,8 +51,8 @@ const LoginPage = () => {
     <ThemeProvider theme={backgroundTheme}>
         <Box
             sx={{
-                width: 487,
-                height: 490,
+                width: '50vw',
+                height: '55vh',
                 backgroundColor: 'primary.main',
                 px: 40,
                 pt: 20,
@@ -67,7 +66,7 @@ const LoginPage = () => {
         >
             {/* LOGIN TEXT */}
             <ThemeProvider theme={textTheme}>
-                <Box  sx={{ mt: 20, }}>
+                <Box  sx={{ mt: 0, }}>
                     <Typography variant='title' color='primary.main'>
                         Login
                     </Typography>
@@ -77,7 +76,7 @@ const LoginPage = () => {
             {/* INPUT */}
             <Box component="form" noValidate 
                 sx={{ 
-                    mt: 28, 
+                    mt: '3.5%', 
                     width: '100%',
                     display: 'flex',
                     flexDirection: 'column',
@@ -107,7 +106,7 @@ const LoginPage = () => {
                     }}
                 />
                 <ThemeProvider theme={textTheme}>
-                    <Box  sx={{ mt: 18, }}>
+                    <Box  sx={{ mt: '2%', }}>
                         <Typography variant='inputheader' color='primary.main'>
                             Login
                         </Typography>
@@ -133,13 +132,13 @@ const LoginPage = () => {
             </Box>
 
             {/* LOGIN BUTTON */}
-            <Button variant="contained" fullWidth  sx={{ mt: 30, backgroundColor: 'primary.button'}}>
+            <Button variant="contained" fullWidth  sx={{ mt: '5%', backgroundColor: 'primary.button'}}>
                 LOGIN
             </Button>
 
             {/* TEXT AT BOTTOM */}
             <ThemeProvider theme={textTheme}>
-                <Box  sx={{ mt: 23, textAlign: 'left',}}>
+                <Box  sx={{ mt: '3.5%', textAlign: 'left',}}>
                     <Typography variant='content' color='primary.content'>
                         Or <Typography variant='content' color='primary.link'> Create Your Account </Typography> 
                         now to build your own personalised calendar!
