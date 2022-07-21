@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, Button, Box, TextField } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import './LoginPage.css'
+import './LoginMui.css'
 
 const LoginPage = () => {
 
