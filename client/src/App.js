@@ -4,6 +4,7 @@ import EventAdd from './components/EventAdd';
 import FrontGeneral from './components/FrontGeneral'; 
 import SocFollowing from './components/SocFollowing';
 import SearchBar from './components/SearchBar';
+import TagFilter from './components/TagFilter';
 
 import { useState } from 'react'
 import fullSocList from './components/TestData.json'
@@ -29,8 +30,9 @@ function App() {
 
   return (
     <div className="App">
-      <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
-      <SocFollowing societies={societies} delSociety={delSociety}/>
+      {/* <SearchBar addSociety={addSociety} fullSocList={fullSocList}/> */}
+      {/* <SocFollowing societies={societies} delSociety={delSociety}/> */}
+      <TagFilter />
     </div>
   );
 }

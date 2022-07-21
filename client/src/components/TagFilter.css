@@ -1,0 +1,56 @@
+.tagContainer {
+    width: 70vw;
+    height: 30vh;
+    border-radius: 20px;
+    margin: 100px auto;
+    padding: 0 3% 1.5% 3%;
+    
+    background-color: white;
+
+    display: flex;
+}
+
+.tags {
+    width: 60%;
+    text-align: left;
+}
+
+.tagTitle {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.tagTitle a {
+    font-size: 4rem;
+    font-weight: 600;
+}
+
+.tagList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background-color: greenyellow;
+    transition: background-color 250ms linear;
+    width: 20%;
+    margin-right: 5%;
+    margin-top: 2%;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.tag:hover {
+    background-color: #B9EEFF;
+    transition: background-color 400ms linear;
+  }
+
+.tag-active {
+background-color: #B9EEFF;
+}
+
+.tagText {
+    margin: 0;
+}
