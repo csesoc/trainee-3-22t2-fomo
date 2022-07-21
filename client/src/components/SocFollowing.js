@@ -1,4 +1,5 @@
 import Soc from './Soc';
+import './Soc.css'
 
 const SocFollowing = ({ societies, delSociety }) => {
 

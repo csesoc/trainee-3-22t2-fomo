@@ -1,4 +1,5 @@
 import { FaTimes } from 'react-icons/fa'
+import './Soc.css'
 
 const Soc = ({ society, delSociety }) => {
     

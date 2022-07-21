@@ -1,3 +1,5 @@
+import './SearchBar.css'
+
 const SearchMatch = ({ society, addSociety }) => {
   return (
     <div className='searchMatch' onClick={() => addSociety(society.id)}>
