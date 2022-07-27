@@ -20,7 +20,7 @@ const SocFollowing = ({ societies, delSociety }) => {
     <div className='followBox' onMouseOver={() => toggleActive()}>
       <h1>Following</h1>
       {societies.map((society) => (
-        <Soc key={society.id} society={society} delSociety={delSociety} />
+        <Soc key={society.societyId} society={society} delSociety={delSociety} />
       ))}
     </div>
   )

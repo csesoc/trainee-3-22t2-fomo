@@ -5,9 +5,7 @@ import './SearchBar.css'
 const SearchBar = ({ addSociety, fullSocList }) => {
 
   const [input, setInput] = useState('')
-  const inputRegexWS = new RegExp('[-_ ]' + input.toLowerCase(), 'g')
-  const inputRegexStart = new RegExp('^' + input.toLowerCase(), 'g')
-
+  
   return (
     <div className='searchBarContainer'>
       <input 
@@ -23,13 +21,12 @@ const SearchBar = ({ addSociety, fullSocList }) => {
           if (input === '') {
             // No input
             return null
-          } else if (inputRegexWS.test(society.name.toLowerCase()) 
-                    || inputRegexStart.test(society.name.toLowerCase())) {
+          } else if (society.societyName.toLowerCase().includes(input.toLowerCase())) {
             // Check for match
             return society
           }
         }).map((society) => (
-          <SearchMatch key={society.id} society={society} addSociety={addSociety} />
+          <SearchMatch key={society.societyId} society={society} addSociety={addSociety} />
         ))
       }
     </div>

@@ -5,8 +5,8 @@ const Soc = ({ society, delSociety }) => {
     
   return (
     <div className="followSoc">
-        <p>{society.name}</p>
-        <FaTimes onClick={() => delSociety(society.id)}/>
+        <p>{society.societyName}</p>
+        <FaTimes onClick={() => delSociety(society.societyId)}/>
     </div>
   )
 }
