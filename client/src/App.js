@@ -32,7 +32,6 @@ function App() {
     <div className="App">
       {/* <SearchBar addSociety={addSociety} fullSocList={fullSocList}/> */}
       {/* <SocFollowing societies={societies} delSociety={delSociety}/> */}
-      <TagFilter />
     </div>
   );
 }
