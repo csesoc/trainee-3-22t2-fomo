@@ -1,6 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import EventAdd from './components/EventAdd';
+<<<<<<< HEAD
 import FrontGeneral from './components/FrontGeneral'; 
 import SocFollowing from './components/SocFollowing';
 import SearchBar from './components/SearchBar';
@@ -8,6 +8,10 @@ import TagFilter from './components/TagFilter';
 
 import { useState } from 'react'
 import fullSocList from './components/TestData.json'
+=======
+import LoginPage from './components/LoginPage';
+import FrontGeneral from './components/FrontGeneral'
+>>>>>>> main
 
 function App() {
 
