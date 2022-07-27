@@ -30,4 +30,12 @@ router.post('/del', async (req, res) => {
     res.status(200).send({ message : 'Success'})
 })
 
+/*
+Returns a list of all societies in the db
+*/
+router.get('/getAll', async (req, res) => {
+    const societies = await fomoSocieties.find({}).toArray()
+    res.status(200).send(societies)
+})
+
 export { router as default}
