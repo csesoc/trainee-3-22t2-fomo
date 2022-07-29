@@ -39,7 +39,7 @@ export async function register(username, password, societyName) {
         username: username,
         salt: salt,
         password: hashed,
-        society: societyName
+        societies: []
     }
 
     await fomoUsers.insertOne(user);

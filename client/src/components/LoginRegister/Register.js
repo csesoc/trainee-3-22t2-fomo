@@ -25,7 +25,7 @@ const Register = () => {
       return
     }
 
-    fetch("http://localhost:5000/login", {
+    fetch("http://localhost:5000/register", {
       method: "post",
       headers: {
         'Accept': 'application/json',
