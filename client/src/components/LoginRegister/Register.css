@@ -22,21 +22,6 @@
     font-size: 3rem;
 }
 
-.inputDetails {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.inputDetailsBar {
-    width: 80%;
-    height: 18px;
-    margin-top: 1.3%;
-    border-style: none;
-
-    background-color: #5E695F;
-}
-
 .input {
     width: 100%;
     margin: 0;
