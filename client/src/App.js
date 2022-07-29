@@ -1,14 +1,14 @@
 import './App.css';
 import EventAdd from './components/EventAdd';
-import LoginPage from './components/LoginPage';
+import Login from './components/LoginRegister/Login';
+import Register from './components/LoginRegister/Register';
 import FrontGeneral from './components/FrontGeneral'
 
 function App() {
   return (
     <div className="App">
-      <LoginPage />
-      <EventAdd />
-      <FrontGeneral /> 
+      <Register />
+      <Login />
     </div>
   );
 }
