@@ -1,5 +1,5 @@
-// Setup database
-import {client, fomodb, fomoEvents, fomoSocieties} from './database.js'
+// Get collections from database
+import {client, fomodb, fomoEvents, fomoSocieties} from '../database.js'
 
 /**
  * Finds a society's id given their name
