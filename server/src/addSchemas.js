@@ -29,7 +29,8 @@ fomodb.command({
                 }
             }
         }
-    }
+    },
+    validationAction: "warn"
 });
 
 fomodb.command({
@@ -55,7 +56,8 @@ fomodb.command({
                 }
             }
         }
-    }
+    },
+    validationAction: "warn"
 });
 
 fomodb.command({
@@ -83,5 +85,6 @@ fomodb.command({
                 }
             }
         }
-    }
+    },
+    validationAction: "warn"
 });
