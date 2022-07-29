@@ -1,25 +1,8 @@
 import express from 'express'
 import { getEvents } from './eventHelper.js'
 import { fomoEvents } from '../database.js';
+import { verifyJWT } from '../middleware/verifyJWT.js';
 const router = express.Router();
-
-/*
-Adds an event to the database 
-Body should contain the following structure:
-{
-    eventId : String,
-    societyId : Integer,
-    eventName : String,
-    date : Integer,
-    description : String,
-}
-NOTE: date is in Unix epoch time
-
-*/
-router.post('/add', async (req, res) => {
-    await fomoEvents.insertOne(req.body)
-    res.status(200).send({ message : 'Success'})
-})
 
 /*
 Gets an event from the database
@@ -38,6 +21,26 @@ router.get('/get', async (req, res) => {
     } else {
         res.status(404).send({ error: 'Cannot find events with given parameters'})
     }
+})
+
+router.use(verifyJWT);
+
+/*
+Adds an event to the database 
+Body should contain the following structure:
+{
+    eventId : String,
+    societyId : Integer,
+    eventName : String,
+    date : Integer,
+    description : String,
+}
+NOTE: date is in Unix epoch time
+
+*/
+router.post('/add', async (req, res) => {
+    await fomoEvents.insertOne(req.body)
+    res.status(200).send({ message : 'Success'})
 })
 
 /*
