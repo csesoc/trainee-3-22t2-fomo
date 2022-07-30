@@ -42,18 +42,4 @@ Body should contain the following structure:
 router.post('/del', async (req, res) => {
     await fomoSocieties.deleteOne({ societyId: req.body.societyId })
     res.status(200).send({ message : 'Success'})
-<<<<<<< HEAD
 })
-
-/*
-Returns a list of all societies in the db
-*/
-router.get('/getAll', async (req, res) => {
-    const societies = await fomoSocieties.find({}).toArray()
-    res.status(200).send(societies)
-})
-
-export { router as default}
-=======
-})
->>>>>>> main
