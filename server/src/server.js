@@ -5,6 +5,7 @@ import eventRoutes from './routes/event.js'
 import societyRoutes from './routes/society.js'
 import authRoutes from './routes/auth.js'
 import { verifyJWT } from './middleware/verifyJWT.js';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
 // Setup database
@@ -15,6 +16,7 @@ const app = express()
 var router = express.Router()
 app.use(express.json())
 app.use(cors());
+app.use(cookieParser());
 app.use('/', authRoutes);
 // Add all the routes
 app.use('/event', eventRoutes);
