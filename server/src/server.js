@@ -16,9 +16,6 @@ var router = express.Router()
 app.use(express.json())
 app.use(cors());
 app.use('/', authRoutes);
-// Verify JWT middleware (all routes below require an access token)
-// app.use(verifyJWT);
-
 // Add all the routes
 app.use('/event', eventRoutes);
 app.use('/society', societyRoutes);

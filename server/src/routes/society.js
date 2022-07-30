@@ -1,6 +1,20 @@
-import express from 'express'
+import express, { application } from 'express'
 import { fomoSocieties } from '../database.js';
+import { verifyJWT } from '../middleware/verifyJWT.js';
 const router = express.Router();
+
+/*
+Returns a list of all societies in the db
+*/
+router.get('/getAll', async (req, res) => {
+    const societies = await fomoSocieties.find({}).toArray()
+    res.status(200).send(societies)
+})
+
+export { router as default}
+
+router.use(verifyJWT);
+
 
 /*
 Adds a society to the database 
@@ -28,6 +42,7 @@ Body should contain the following structure:
 router.post('/del', async (req, res) => {
     await fomoSocieties.deleteOne({ societyId: req.body.societyId })
     res.status(200).send({ message : 'Success'})
+<<<<<<< HEAD
 })
 
 /*
@@ -39,3 +54,6 @@ router.get('/getAll', async (req, res) => {
 })
 
 export { router as default}
+=======
+})
+>>>>>>> main

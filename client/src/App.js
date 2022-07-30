@@ -1,12 +1,14 @@
 import './App.css';
 import EventAdd from './components/EventAdd';
 import FrontGeneral from './components/FrontGeneral'; 
+import Login from './components/LoginRegister/Login';
+import Register from './components/LoginRegister/Register';
 import SocFollowing from './components/SocFollowing';
 import SearchBar from './components/SearchBar';
 import TagFilter from './components/TagFilter';
 
 import { useState, useEffect } from 'react'
-import LoginPage from './components/LoginPage';
+
 
 function App() {
 
