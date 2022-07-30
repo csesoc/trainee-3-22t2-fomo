@@ -32,6 +32,8 @@
   
   .followSoc p {
     margin: 0;
+    font-family: Roboto;
+    font-weight: 500;
   }
   
   .followSoc:hover {
