@@ -21,8 +21,7 @@ router.post('/register', async (req, res) => {
         res.status(400).send({ error : tokens.error});
         return;
     }
-    res.cookie('jwt', tokens.refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
-    res.status(200).send({ accessToken: tokens.accessToken });
+    res.status(200).send({ success: 'success' });
 })
 
 /*
@@ -40,7 +39,8 @@ router.post('/login', async (req, res) => {
         return;
     }
     console.log(tokens);
-    res.cookie('jwt', tokens.refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
+    //res.cookie('jwt', tokens.refreshToken, { httpOnly: true, origin: 'http://localhost', secure: true , maxAge: 24 * 60 * 60 * 1000});
+    res.cookie('jwt', tokens.refreshToken, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none', secure: true});
     res.status(200).send({ accessToken: tokens.accessToken });
 });
 

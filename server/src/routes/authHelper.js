@@ -35,7 +35,7 @@ export async function register(username, password, societyName) {
     // Convert hash object to string
     let hashed = hash.digest('hex');
 
-    const refreshToken = jwt.sign({ username: user.username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+    const refreshToken = jwt.sign({ username: username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
 
     let user = {
         username: username,

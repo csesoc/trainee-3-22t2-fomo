@@ -5,6 +5,8 @@ import eventRoutes from './routes/event.js'
 import societyRoutes from './routes/society.js'
 import authRoutes from './routes/auth.js'
 import { verifyJWT } from './middleware/verifyJWT.js';
+import { corsOptions } from './config/corsOptions.js';
+import { credentials } from './middleware/credentials.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
@@ -15,7 +17,8 @@ import {client, fomodb, fomoEvents, fomoSocieties, fomoUsers} from './database.j
 const app = express()
 var router = express.Router()
 app.use(express.json())
-app.use(cors());
+app.use(credentials);
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use('/', authRoutes);
 // Add all the routes
