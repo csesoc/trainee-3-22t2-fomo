@@ -1,23 +1,56 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Button, Modal, Typography, Box, Dialog, DialogContent, DialogTitle, DialogContentText, TextField, DialogActions, FormControl, InputLabel, OutlinedInput, FormHelperText}  from "@mui/material"
 import { flexbox } from '@mui/system';
 import { LocalizationProvider, DesktopDatePicker, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { FaCalendarPlus } from 'react-icons/fa';
+import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import { useNavigate } from 'react-router-dom';
 const titleStyle = {
   margin: '10px',
 }
 
 
 const EventAdd = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [value, setValue] = useState(new Date('2022-07-25T20:00:00'))
+  const { auth } = useAuth();
+  const [inputs, setInputs] = useState({
+    eventName: '',
+    description: '',
+    date: value,
+    time: value,
+    societyId: 1
+  });
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInputs(values => ({...values, [name]: value}))
+  }
 
   const handleDateTimeChange = (newValue) => {
     setValue(newValue);
   }
+
+  const handleSubmit = async (e) => {
+    try {
+      const response = await axiosPrivate.post('/event/add', {
+        inputs
+      });
+      console.log('success');
+      handleClose();
+    } catch (err) {
+      navigate('/login');
+    }
+  }
+
+
   return (
     <div>
       <FaCalendarPlus onClick={handleOpen} /> 
@@ -28,6 +61,8 @@ const EventAdd = () => {
           <FormHelperText>Event Name</FormHelperText>
           <OutlinedInput
             placeholder="Event Name"
+            name="eventName"
+            onChange={handleChange}
           />
         </FormControl>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -55,13 +90,14 @@ const EventAdd = () => {
             placeholder="Description"
             multiline
             rows={5}
-            maxRows={Infinity}
+            name="description"
+            onChange={handleChange}
           />
         </FormControl>
       </Box>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleClose}>Add</Button>
+        <Button onClick={handleSubmit}>Add</Button>
       </DialogActions>
     </Dialog>
     </div>

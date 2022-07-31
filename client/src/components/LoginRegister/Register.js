@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import './Register.css'
 
 const Register = () => {
+  const navigate = useNavigate();
 
   const [inputs, setInputs] = useState({
     username: '',
@@ -39,7 +41,7 @@ const Register = () => {
       })
     })
     .then((response) => response.json())
-    .then((data) => {console.log(data)})
+    .then((data) => {navigate('/login')})
     .catch(err => {console.log(err)});
   }
     
@@ -53,7 +55,6 @@ const Register = () => {
           <p className='regisText'>Fill in your details and start your own <a>personalised calendar</a> now!</p>
       </div>
       {/*INPUT FORM*/}
-      <form className="input">
         {/*USERNAME INPUT*/}
         <div className="miniInput">
           <h3 className='inputText'>Username</h3>
@@ -78,7 +79,6 @@ const Register = () => {
           <input name="confirmpassword" className='inputBar' type='text' 
           value={inputs.confirmpassword} onChange={handleChange} />
         </div>
-      </form>
       {/*BUTTON*/}
       <Button type="submit" variant="contained" fullWidth  sx={{ mt: '5%', backgroundColor: '#40E317'}}>
           REGISTER
