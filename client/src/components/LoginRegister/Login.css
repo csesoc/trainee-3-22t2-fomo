@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+
+.container {
+    background-color: #343333;
+    width: 40vw;
+    height: 55vh;
+    padding: 3% 3.5%;
+    border-radius: 20px;
+    max-width: 500px;
+    min-height: 300px;
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.headerText {
+    color: #1CB82C;
+    margin: 0;
+
+    font-size: 3rem;
+}
+
+.input {
+    margin-top: 5%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.miniInput {
+    margin-top: 3%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.inputText {
+    color: #1CB82C;
+    margin: 0;
+
+    font-size: 1.7rem;
+}
+
+.inputBar {
+    width: 100%;
+    height: 24px;
+    margin-top: 1.3%;
+    border-style: none;
+
+    background-color: #5E695F;
+}
+
+.registerText {
+    margin-top: 5%;
+}
+
+.regisText {
+    margin: 0;
+    text-align: left;
+    font-family: Roboto;
+    font-weight: 900;
+    font-size: 1rem;
+    line-height: 1.2;
+    color: white;
+}
+
+.regisText a {
+    color: #2AFF25;
+}
