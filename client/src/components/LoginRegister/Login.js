@@ -1,9 +1,13 @@
 import { useState } from 'react'
+import useAuth from '../../hooks/useAuth';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@mui/material'
 import './Login.css'
 
 const Login = () => {
+  const { setAuth } = useAuth();
 
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     username: '',
     password: '',
@@ -25,7 +29,7 @@ const Login = () => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-
+      credentials: 'include',
       //make sure to serialize your JSON body
       body: JSON.stringify({
         username: inputs.username,
@@ -33,7 +37,13 @@ const Login = () => {
       })
     })
     .then((response) => response.json())
-    .then((data) => {console.log(data)})
+    .then((data) => {
+      setAuth({ accessToken: data.accessToken });
+      // Reset the username and password so they are no longer stored
+      setInputs({username: '', password: ''});
+      console.log(data);
+      navigate("/admin", { replace: true });
+    })
     .catch(err => {console.log(err)});
   }
     

@@ -3,13 +3,25 @@ import EventAdd from './components/EventAdd';
 import Login from './components/LoginRegister/Login';
 import Register from './components/LoginRegister/Register';
 import FrontGeneral from './components/FrontGeneral'
+import Layout from './components/Layout';
+import RequireAuth from './components/RequireAuth';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <Register />
-      <Login />
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* public routes */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<FrontGeneral />} />
+        {/* protect the following routes */}
+        <Route element={<RequireAuth />}>
+          {/* Replace below element with the society/admin version!!!!*/}
+          <Route path="/admin" element={<FrontGeneral />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
 
