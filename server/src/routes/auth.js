@@ -18,10 +18,11 @@ Body should contain the following structure:
 router.post('/register', async (req, res) => {
     const tokens = await register(req.body.username, req.body.password);
     if (tokens.error !== undefined) {
+        console.log(tokens.error)
         res.status(400).send({ error : tokens.error});
         return;
     }
-    res.status(200).send({ success: 'success' });
+    res.status(200).send({ accessToken: tokens.accessToken });
 })
 
 /*

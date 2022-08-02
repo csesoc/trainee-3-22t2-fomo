@@ -12,8 +12,8 @@ const Profile = () => {
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
-    let username = axiosPrivate.get('/getusername', {}) 
-    .then((res) => setName(res.data.username))
+    let username = axiosPrivate.get('/user/get', {}) 
+    .then((res) => setName(res.data.user.username))
     .catch((err) => console.log(err))
   }, [])
 

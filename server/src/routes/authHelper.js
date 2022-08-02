@@ -49,7 +49,7 @@ export async function register(username, password, societyName) {
     // Create token
     let token = jwt.sign({ username: username }, process.env.SUPER_SECRET_KEY, { expiresIn: '1h'});
 
-    return {token: token};
+    return {accessToken: token};
 }
 /**
  * Returns a token when given a valid username and password
