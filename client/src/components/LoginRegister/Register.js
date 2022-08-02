@@ -1,9 +1,13 @@
 import { useState } from 'react'
 import { Button } from '@mui/material'
+import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom'
-import './Register.css'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import styles from './Register.module.css'
 
 const Register = () => {
+  const { setAuth } = useAuth();
+  const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
 
   const [inputs, setInputs] = useState({
@@ -19,7 +23,7 @@ const Register = () => {
     setInputs(values => ({...values, [name]: value}))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
     if (inputs.password !== inputs.confirmpassword) {
@@ -27,56 +31,57 @@ const Register = () => {
       return
     }
 
-    fetch("http://localhost:5000/register", {
-      method: "post",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-
-      //make sure to serialize your JSON body
-      body: JSON.stringify({
+    try {
+      const res = await axiosPrivate.post('/register', {
         username: inputs.username,
         password: inputs.password,
-      })
-    })
-    .then((response) => response.json())
-    .then((data) => {navigate('/login')})
-    .catch(err => {console.log(err)});
+      }) 
+      setAuth({ accessToken: res.data.accessToken });
+      setInputs({ 
+        username: '',
+        email: '',
+        password: '',
+        confirmpassword: '',
+      });
+      navigate('/admin', { replace: true });
+    } catch (err) {
+      navigate('/register');
+      console.log(err)
+    }
   }
     
   return (
     // CONTAINER
-    <form onSubmit={handleSubmit} className='container'>
+    <form onSubmit={handleSubmit} className={styles.container}>
       {/*LOGIN TITLE*/}
-      <h1 className='headerText'>Register</h1>
+      <h1 className={styles.headerText}>Register</h1>
       {/*TEXT AT BOTTOM*/}
-      <div className="registerText">
-          <p className='regisText'>Fill in your details and start your own <a>personalised calendar</a> now!</p>
+      <div className={styles.registerText}>
+          <p className={styles.regisText}>Fill in your details and start your own <a>personalised calendar</a> now!</p>
       </div>
       {/*INPUT FORM*/}
         {/*USERNAME INPUT*/}
-        <div className="miniInput">
-          <h3 className='inputText'>Username</h3>
-          <input name="username" className='inputBar' type='text' 
+        <div className={styles.miniInput}>
+          <h3 className={styles.inputText}>Username</h3>
+          <input name="username" className={styles.inputBar} type='text' 
           value={inputs.username} onChange={handleChange} />
         </div>
         {/*EMAIL INPUT*/}
-        <div className="miniInput">
-          <h3 className='inputText'>Email</h3>
-          <input name="email" className='inputBar' type='text' 
+        <div className={styles.miniInput}>
+          <h3 className={styles.inputText}>Email</h3>
+          <input name="email" className={styles.inputBar} type='text' 
           value={inputs.email} onChange={handleChange} />
         </div>
         {/*PASSWORD INPUT*/}
-        <div className="miniInput">
-          <h3 className='inputText'>Password</h3>
-          <input name="password" className='inputBar' type='text' 
+        <div className={styles.miniInput}>
+          <h3 className={styles.inputText}>Password</h3>
+          <input name="password" className={styles.inputBar} type='text' 
           value={inputs.password} onChange={handleChange} />
         </div>
         {/*CONFIRM PASSWORD INPUT*/}
-        <div className="miniInput">
-          <h3 className='inputText'>Confirm Password</h3>
-          <input name="confirmpassword" className='inputBar' type='text' 
+        <div className={styles.miniInput}>
+          <h3 className={styles.inputText}>Confirm Password</h3>
+          <input name="confirmpassword" className={styles.inputBar} type='text' 
           value={inputs.confirmpassword} onChange={handleChange} />
         </div>
       {/*BUTTON*/}

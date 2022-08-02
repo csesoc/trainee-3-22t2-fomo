@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import useAuth from '../../hooks/useAuth';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { Button } from '@mui/material'
-import './Login.css'
+import styles from './Login.module.css'
 
 const Login = () => {
   const { setAuth } = useAuth();
-
+  const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
+  
   const [inputs, setInputs] = useState({
     username: '',
     password: '',
@@ -19,51 +21,41 @@ const Login = () => {
     setInputs(values => ({...values, [name]: value}))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
 
-    fetch("http://localhost:5000/login", {
-      method: "post",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include',
-      //make sure to serialize your JSON body
-      body: JSON.stringify({
+    try {
+      const res = await axiosPrivate.post('/login', {
         username: inputs.username,
         password: inputs.password,
-      })
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      setAuth({ accessToken: data.accessToken });
-      // Reset the username and password so they are no longer stored
-      setInputs({username: '', password: ''});
-      console.log(data);
-      navigate("/admin", { replace: true });
-    })
-    .catch(err => {console.log(err)});
+      }) 
+      setAuth({ accessToken: res.data.accessToken });
+      setInputs({ username: '', password: '' });
+      navigate('/admin', { replace: true });
+    } catch (err) {
+      navigate('/login');
+      console.log(err)
+    }
   }
     
   return (
     // CONTAINER
-    <form onSubmit={handleSubmit} className='container'>
+    <form onSubmit={handleSubmit} className={styles.container}>
       {/*LOGIN TITLE*/}
-      <h1 className='headerText'>Login</h1>
+      <h1 className={styles.headerText}>Login</h1>
       {/*INPUT BARS*/}
-      <div className="input">
+      <div className={styles.input}>
         {/*USERNAME INPUT*/}
-        <div className="miniInput">
-          <h3 className='inputText'>Username</h3>
-          <input name='username' className='inputBar' type='text'
+        <div className={styles.miniInput}>
+          <h3 className={styles.inputText}>Username</h3>
+          <input name='username' className={styles.inputBar} type='text'
           value={inputs.username} onChange={handleChange} />
         </div>
         {/*PASSWORD INPUT*/}
-        <div className="miniInput">
-          <h3 className='inputText'>Password</h3>
-          <input name='password' className='inputBar' type='text'
+        <div className={styles.miniInput}>
+          <h3 className={styles.inputText}>Password</h3>
+          <input name='password' className={styles.inputBar} type='text'
           value={inputs.password} onChange={handleChange} />
         </div>
       </div>
@@ -72,8 +64,8 @@ const Login = () => {
           LOGIN
       </Button>
       {/*TEXT AT BOTTOM*/}
-      <div className="registerText">
-          <p className='regisText'>Or <a>Create Your Account</a> now to build your own personalised calendar!</p>
+      <div className={styles.registerText}>
+          <p className={styles.regisText}>Or <a href='http://localhost:3000/register'>Create Your Account</a> now to build your own personalised calendar!</p>
       </div>
     </form>
   )
