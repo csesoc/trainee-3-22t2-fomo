@@ -6,6 +6,7 @@ import FrontGeneral from './components/FrontGeneral'
 import Profile from './components/LoginRegister/Profile';
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
+import { AdminProvider } from './context/AdminProvider';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -19,7 +20,14 @@ function App() {
         {/* protect the following routes */}
         <Route element={<RequireAuth />}>
           {/* Replace below element with the society/admin version!!!!*/}
-          <Route path="/admin" element={<FrontGeneral />} />
+          <Route 
+            path="/admin" 
+            element={
+              <AdminProvider>
+                <FrontGeneral />
+              </AdminProvider>
+            } 
+          />
         </Route>
       </Route>
     </Routes>

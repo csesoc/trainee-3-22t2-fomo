@@ -1,21 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
 import styles from './Profile.module.css'
 import { Button } from '@mui/material'
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useNavigate } from 'react-router-dom';
+import AdminContext from '../../context/AdminProvider';
 
 const Profile = () => {
 
-  const [name, setName] = useState('');
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
 
-  useEffect(() => {
-    let username = axiosPrivate.get('/user/get', {}) 
-    .then((res) => setName(res.data.user.username))
-    .catch((err) => console.log(err))
-  }, [])
+  const user = useContext(AdminContext);
+  const username = user?.username;
 
   const logout = async () => {
     try {
@@ -32,7 +29,7 @@ const Profile = () => {
       {/* TEXT */}
       <h1 className={styles.curview}>Currently Viewing</h1>
       <div className={styles.bottomText}>
-        <h1 className={styles.name}>{name}'s<p className={styles.calendar}>FOMO Calendar</p></h1>
+        <h1 className={styles.name}>{username}'s<p className={styles.calendar}>FOMO Calendar</p></h1>
         <div className={styles.calendarIcon}><FaRegCalendarAlt /></div>
       </div>
       {/*BUTTON*/}
