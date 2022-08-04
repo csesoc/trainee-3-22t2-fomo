@@ -4,6 +4,7 @@ import express from 'express';
 import eventRoutes from './routes/event.js'
 import societyRoutes from './routes/society.js'
 import authRoutes from './routes/auth.js'
+import userRoutes from './routes/user.js'
 import { verifyJWT } from './middleware/verifyJWT.js';
 import { corsOptions } from './config/corsOptions.js';
 import { credentials } from './middleware/credentials.js';
@@ -24,6 +25,7 @@ app.use('/', authRoutes);
 // Add all the routes
 app.use('/event', eventRoutes);
 app.use('/society', societyRoutes);
+app.use('/user', userRoutes);
 
 
 // Start the server at port 5000
