@@ -47,9 +47,9 @@ export async function register(username, password, societyName) {
 
     await fomoUsers.insertOne(user);
     // Create token
-    let token = jwt.sign({ username: username }, process.env.SUPER_SECRET_KEY, { expiresIn: '1h'});
+    let accessToken = jwt.sign({ username: username }, process.env.SUPER_SECRET_KEY, { expiresIn: '1h'});
 
-    return {accessToken: token};
+    return {accessToken: accessToken, refreshToken: refreshToken};
 }
 /**
  * Returns a token when given a valid username and password
