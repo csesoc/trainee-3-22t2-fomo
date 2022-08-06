@@ -5,6 +5,7 @@ import EventAdd from './EventAdd';
 import LoginIcon from './LoginRegister/LoginIcon';
 import Profile from './LoginRegister/Profile';
 import './FrontGeneral.css'
+import Calendar from './Calendar'; 
 
 const FrontGeneral = () => {
   return (
@@ -19,6 +20,7 @@ const FrontGeneral = () => {
         </ul>
       </div>
       <Profile />
+      <Calendar />
     </div>
   )
 }

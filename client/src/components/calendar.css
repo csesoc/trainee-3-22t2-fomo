@@ -1,0 +1,27 @@
+.fc-day-today {
+  background-color: #ffffff;
+}
+
+.fc td {
+  background-color: #ffffff;
+
+}
+
+.fc th {
+  background-color: #ffffff;
+
+}
+
+.fc-widget-header{
+  background-color:rgb(0, 255, 85);
+}
+
+/* .fc td[class*="other-month"] {
+  color: #ffffff;
+  background-color: bluevioslet;
+} */
+
+.fc-toolbar h2 {
+  margin: 0;
+  color: #FFF;
+}
