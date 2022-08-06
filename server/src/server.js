@@ -4,7 +4,11 @@ import express from 'express';
 import eventRoutes from './routes/event.js'
 import societyRoutes from './routes/society.js'
 import authRoutes from './routes/auth.js'
+import userRoutes from './routes/user.js'
 import { verifyJWT } from './middleware/verifyJWT.js';
+import { corsOptions } from './config/corsOptions.js';
+import { credentials } from './middleware/credentials.js';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
 // Setup database
@@ -14,11 +18,14 @@ import {client, fomodb, fomoEvents, fomoSocieties, fomoUsers} from './database.j
 const app = express()
 var router = express.Router()
 app.use(express.json())
-app.use(cors());
+app.use(credentials);
+app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use('/', authRoutes);
 // Add all the routes
 app.use('/event', eventRoutes);
 app.use('/society', societyRoutes);
+app.use('/user', userRoutes);
 
 
 // Start the server at port 5000
