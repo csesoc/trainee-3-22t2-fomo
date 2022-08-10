@@ -25,7 +25,7 @@ app.use('/society', societyRoutes);
 
 
 // Start the server at port 5000
-app.listen(5000, async () => {
+app.listen(5012, async () => {
     await client.connect()
     console.log('Server started!')
     console.log('listening on port 5000')
