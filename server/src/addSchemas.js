@@ -5,18 +5,19 @@ fomodb.command({
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["societyId", "eventId", "eventName", "time", "description", "tags"],
+            required: ["societyId", "eventName", "start", 'end', "description", "tags"],
             properties: {
                 societyId: {
-                    bsonType: "int"
-                },
-                eventId: {
-                    bsonType: "int"
+                    bsonType: "string"
                 },
                 eventName: {
                     bsonType: "string"
                 },
-                time: {
+                start: {
+                    bsonType: "int",
+                    description: "Epoch time in milliseconds"
+                },
+                end: {
                     bsonType: "int",
                     description: "Epoch time in milliseconds"
                 },
@@ -38,11 +39,8 @@ fomodb.command({
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["societyId", "societyName", "admins", "users"],
+            required: ["societyName", "admins", "users"],
             properties: {
-                societyId: {
-                    bsonType: "int"
-                },
                 societyName: {
                     bsonType: "string"
                 },
@@ -65,11 +63,8 @@ fomodb.command({
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["username", "password", "salt", "society"],
+            required: ["username", "password", "salt", "societies", "tags"],
             properties: {
-                userId: {
-                    bsonType: "int"
-                },
                 username: {
                     bsonType: "string"
                 },
@@ -77,10 +72,16 @@ fomodb.command({
                     bsonType: "string",
                     description: "Must be encrypted"
                 },
+                email: {
+                    bsonType: "string"
+                },
                 salt: {
                     bsonType: "string"
                 },
                 societies: {
+                    bsonType: "array"
+                },
+                tags: {
                     bsonType: "array"
                 }
             }
