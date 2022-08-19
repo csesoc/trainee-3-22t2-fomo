@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {Button, Modal, Typography, Box, Dialog, DialogContent, DialogTitle, DialogContentText, TextField, DialogActions, FormControl, InputLabel, OutlinedInput, FormHelperText}  from "@mui/material"
 import { flexbox } from '@mui/system';
-import { LocalizationProvider, DesktopDatePicker, TimePicker } from '@mui/x-date-pickers';
+import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { FaCalendarPlus } from 'react-icons/fa';
 import useAuth from "../hooks/useAuth";
@@ -18,14 +18,12 @@ const EventAdd = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [value, setValue] = useState(new Date('2022-07-25T20:00:00'))
-  const { auth } = useAuth();
+  const [startTime, setStartTime] = useState(new Date('2022-07-25T20:00:00'));
+  const [endTime, setEndTime] = useState(new Date('2022-07-25T20:00:00'));
   const [inputs, setInputs] = useState({
     eventName: '',
     description: '',
-    date: value,
-    time: value,
-    societyId: 1
+    societyId: ''
   });
 
   const handleChange = (e) => {
@@ -34,19 +32,34 @@ const EventAdd = () => {
     setInputs(values => ({...values, [name]: value}))
   }
 
-  const handleDateTimeChange = (newValue) => {
-    setValue(newValue);
+  const handleStartChange = (newTime) => {
+    setStartTime(newTime);
+  }
+
+  const handleEndChange = (newTime) => {
+    setEndTime(newTime)
   }
 
   const handleSubmit = async (e) => {
     try {
       const response = await axiosPrivate.post('/event/add', {
-        inputs
+        // TODO: GET THE SOCIETYID FROM A SOCIETY THAT THE USER IS ACTUALLY A PART OF
+        // TODO: ADD TAGS
+        societyId: "62ff46bb7fd160728335e271",
+        eventName: inputs.eventName,
+        start: startTime.getTime(),
+        end: endTime.getTime(),
+        description: inputs.description,
+        tags: []
       });
       console.log('success');
       handleClose();
     } catch (err) {
-      navigate('/login');
+      console.log(err);
+      console.log(inputs)
+      if (err.response.status === 403 || err.response.status === 401) {
+        navigate('/login');
+      }
     }
   }
 
@@ -67,21 +80,20 @@ const EventAdd = () => {
         </FormControl>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <FormControl sx={{ m: 1, width: '47.25%'}}>
-              <FormHelperText>Date</FormHelperText>
-              <DesktopDatePicker 
-              inputFormat="dd/MM/yyyy"
-              value={value}
-              onChange={handleDateTimeChange}
+              <DateTimePicker
+              label="Start Time"
+              value={startTime}
+              onChange={handleStartChange}
               renderInput={(params) => <TextField {...params} />}
               />
           </FormControl>
           <FormControl sx={{ m: 1, width: '47.25%'}}>
-            <FormHelperText>Time</FormHelperText>
-            <TimePicker
-              value={value}
-              onChange={handleDateTimeChange}
+              <DateTimePicker
+              label="End Time"
+              value={endTime}
+              onChange={handleEndChange}
               renderInput={(params) => <TextField {...params} />}
-            />
+              />
           </FormControl>
         </LocalizationProvider>
         <FormControl fullWidth sx={{ m: 1 }}>
