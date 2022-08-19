@@ -11,7 +11,7 @@ dotenv.config();
  * @param {string} password 
  * @returns 
  */
-export async function register(username, password, societyName) {
+export async function register(username, password, email) {
     // Check for missing parameters
     if (!username || !password) {
         return { error: 'username or password is missing!'}
@@ -42,7 +42,12 @@ export async function register(username, password, societyName) {
         salt: salt,
         password: hashed,
         refreshToken: refreshToken,
-        societies: []
+        societies: [],
+        tags: []
+    }
+
+    if (email !== undefined) {
+        user.email = email;
     }
 
     await fomoUsers.insertOne(user);

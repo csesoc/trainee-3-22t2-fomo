@@ -16,7 +16,7 @@ Body should contain the following structure:
 }
 */
 router.post('/register', async (req, res) => {
-    const tokens = await register(req.body.username, req.body.password);
+    const tokens = await register(req.body.username, req.body.password, req.body.email);
     if (tokens.error !== undefined) {
         console.log(tokens.error)
         res.status(400).send({ error : tokens.error});
@@ -51,15 +51,11 @@ Given a refresh token, return an access token
 */
 router.get('/refresh', async (req, res) => {
     const cookies = req.cookies;
-    console.log(cookies);
     if (!cookies?.jwt) return res.sendStatus(401);
     const refreshToken = cookies.jwt;
-    console.log(refreshToken);
     const foundUsers = await fomoUsers.find({ refreshToken: refreshToken }).toArray();
-    console.log(foundUsers);
     if (foundUsers.length !== 1) return res.sendStatus(403); // Forbidden
     const foundUser = foundUsers[0]
-    console.log(foundUser);
     // evaluate jwt
     jwt.verify(
         refreshToken,

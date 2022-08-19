@@ -19,4 +19,4 @@ router.get('/get', async (req, res) => {
     res.json({ user: foundUser })
 });
 
-export { router as default}
+export { router as default }

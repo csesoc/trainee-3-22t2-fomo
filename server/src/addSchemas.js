@@ -31,7 +31,6 @@ fomodb.command({
             }
         }
     },
-    validationAction: "warn"
 });
 
 fomodb.command({
@@ -55,7 +54,6 @@ fomodb.command({
             }
         }
     },
-    validationAction: "warn"
 });
 
 fomodb.command({
@@ -63,7 +61,7 @@ fomodb.command({
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["username", "password", "salt", "societies", "tags"],
+            required: ["username", "password", "salt", "societies", "tags", "refreshToken"],
             properties: {
                 username: {
                     bsonType: "string"
@@ -83,9 +81,11 @@ fomodb.command({
                 },
                 tags: {
                     bsonType: "array"
+                },
+                refreshToken: {
+                    bsonType: "string"
                 }
             }
         }
     },
-    validationAction: "warn"
 });
