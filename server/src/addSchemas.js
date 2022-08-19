@@ -31,6 +31,7 @@ fomodb.command({
             }
         }
     },
+    validationAction: "error",
 });
 
 fomodb.command({
@@ -54,6 +55,7 @@ fomodb.command({
             }
         }
     },
+    validationAction: "error",
 });
 
 fomodb.command({
@@ -88,4 +90,7 @@ fomodb.command({
             }
         }
     },
+    validationAction: "error",
 });
+
+console.log('finished');
