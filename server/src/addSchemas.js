@@ -14,11 +14,11 @@ fomodb.command({
                     bsonType: "string"
                 },
                 start: {
-                    bsonType: "int",
+                    bsonType: "number",
                     description: "Epoch time in milliseconds"
                 },
                 end: {
-                    bsonType: "int",
+                    bsonType: "number",
                     description: "Epoch time in milliseconds"
                 },
                 description: {

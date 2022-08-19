@@ -15,15 +15,19 @@ Body should contain the following structure:
     password: string
 }
 */
-router.post('/register', async (req, res) => {
-    const tokens = await register(req.body.username, req.body.password, req.body.email);
-    if (tokens.error !== undefined) {
-        console.log(tokens.error)
-        res.status(400).send({ error : tokens.error});
-        return;
+router.post('/register', async (req, res, next) => {
+    try {
+        const tokens = await register(req.body.username, req.body.password, req.body.email);
+        if (tokens.error !== undefined) {
+            console.log(tokens.error)
+            res.status(400).send({ error : tokens.error});
+            return;
+        }
+        res.cookie('jwt', tokens.refreshToken, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none', secure: true});
+        res.status(200).send({ accessToken: tokens.accessToken });
+    } catch (err) {
+        next(err);
     }
-    res.cookie('jwt', tokens.refreshToken, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none', secure: true});
-    res.status(200).send({ accessToken: tokens.accessToken });
 })
 
 /*
@@ -34,7 +38,8 @@ Body should contain the following structure:
     password: string
 }
 */ 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res, next) => {
+    try {
     const tokens = await login(req.body.username, req.body.password);
     if (tokens.error !== undefined) {
         res.status(400).send({ error: tokens.error});
@@ -44,12 +49,16 @@ router.post('/login', async (req, res) => {
     //res.cookie('jwt', tokens.refreshToken, { httpOnly: true, origin: 'http://localhost', secure: true , maxAge: 24 * 60 * 60 * 1000});
     res.cookie('jwt', tokens.refreshToken, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none', secure: true});
     res.status(200).send({ accessToken: tokens.accessToken });
+    } catch (err) {
+        next(err)
+    }
 });
 
 /*
 Given a refresh token, return an access token
 */
-router.get('/refresh', async (req, res) => {
+router.get('/refresh', async (req, res, next) => {
+    try {
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(401);
     const refreshToken = cookies.jwt;
@@ -70,12 +79,16 @@ router.get('/refresh', async (req, res) => {
             res.json({ accessToken });
         }
     )
+    } catch (err) {
+        next(err);
+    }
 });
 
 /*
 Logout the user by disabling the refresh token
 */
-router.get('/logout', async (req, res) => {
+router.get('/logout', async (req, res, next) => {
+    try {
     // On client, delete the accessToken
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(204); //No content to send back (i.e success but there wasn't really a need to logout because there is no token)
@@ -99,6 +112,9 @@ router.get('/logout', async (req, res) => {
 
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
     res.sendStatus(204);
+    } catch (err) {
+        next(err)
+    }
 });
 
 

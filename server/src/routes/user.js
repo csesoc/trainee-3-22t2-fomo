@@ -8,7 +8,8 @@ router.use(verifyJWT);
 /*
 Given a refresh token, returns username of current logged in user
 */
-router.get('/get', async (req, res) => {
+router.get('/get', async (req, res, next) => {
+    try {
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(401); // no refresh token
     const refreshToken = cookies.jwt;
@@ -17,6 +18,9 @@ router.get('/get', async (req, res) => {
     const foundUser = foundUsers[0]
     console.log(foundUser);
     res.json({ user: foundUser })
+    } catch(err) {
+        next(err);
+    }
 });
 
 export { router as default }
