@@ -1,7 +1,8 @@
 import express from 'express'
 import { getEvents } from './eventHelper.js'
-import { fomoEvents } from '../database.js';
+import { fomoEvents, fomoSocieties } from '../database.js';
 import { verifyJWT } from '../middleware/verifyJWT.js';
+import { ObjectId } from 'mongodb';
 const router = express.Router();
 
 /*
@@ -44,6 +45,12 @@ NOTE: date is in Unix epoch time
 */
 router.post('/add', async (req, res, next) => {
     try {
+    // Check if societyId is valid
+    let societyIdObj = ObjectId(req.body.societyId);
+    let foundSociety = await fomoSocieties.find({ _id: societyIdObj }).toArray();
+    if (foundSociety.length <= 0) {
+        return res.status(400).send({ error : 'Invalid society id' });
+    }
     await fomoEvents.insertOne(req.body)
     res.status(200).send({ message : 'Success'})
     } catch(err) {
