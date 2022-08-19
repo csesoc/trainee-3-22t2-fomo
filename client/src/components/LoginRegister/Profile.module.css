@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+
+.container {
+    width: 350px;
+    height: 225px;
+    background-color: #343333;
+    color: #1CB82C;
+    padding: 10px;
+    border-radius: 20px;
+
+    margin-top: 2vw;
+    margin-right: 1vw;
+    right: 0;
+    position: absolute;
+
+    visibility: hidden;
+}
+
+.showProfile {
+    visibility: visible;
+}
+
+.curview {
+    font-family: Roboto;
+    font-size: 43px;
+    margin: 0;
+    text-align: left;
+}
+
+.bottomText {
+    font-family: Roboto;
+    font-size: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name {
+    width: 70%;
+    font-family: Roboto;
+    margin: 0;
+    font-size: 50px;
+    text-align: left;
+    color: #40E317;
+    overflow: scroll;
+}
+
+.calendar {
+    font-family: Roboto;
+    margin: 0;
+    font-size: 30px;
+    color: #1CB82C;
+}
+
+.calendarIcon {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

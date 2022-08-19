@@ -35,19 +35,21 @@ export async function register(username, password, societyName) {
     // Convert hash object to string
     let hashed = hash.digest('hex');
 
+    const refreshToken = jwt.sign({ username: username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+
     let user = {
         username: username,
         salt: salt,
         password: hashed,
-        society: societyName
+        refreshToken: refreshToken,
+        societies: []
     }
 
     await fomoUsers.insertOne(user);
-
     // Create token
-    let token = jwt.sign({ username: username }, process.env.SUPER_SECRET_KEY, { expiresIn: '1h'});
+    let accessToken = jwt.sign({ username: username }, process.env.SUPER_SECRET_KEY, { expiresIn: '1h'});
 
-    return {token: token};
+    return {accessToken: accessToken, refreshToken: refreshToken};
 }
 /**
  * Returns a token when given a valid username and password
@@ -83,9 +85,17 @@ export async function login(username, password) {
         return {error: 'Incorrect password!'};
     }
 
-    // Create token
-    let token = jwt.sign({ username: user.username }, process.env.SUPER_SECRET_KEY, { expiresIn: '1h'});
-    return {token: token};
+    // Create tokens
+    const accessToken = jwt.sign({ username: user.username }, process.env.SUPER_SECRET_KEY, { expiresIn: '30s'});
+    const refreshToken = jwt.sign({ username: user.username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+    
+    await fomoUsers.updateOne({ username: user.username },
+        {
+            $set: {
+                refreshToken: refreshToken
+            }
+        });
+    return {accessToken, refreshToken};
 }
 
 /**
