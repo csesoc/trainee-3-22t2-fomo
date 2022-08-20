@@ -72,10 +72,6 @@ const EventAdd = () => {
     console.log(tags)
   }
 
-  // const setError = () => {
-  //   setdateError(true)
-  // }
-
   const handleSubmit = async (e) => {
     try {
       const response = await axiosPrivate.post('/event/add', {
