@@ -131,7 +131,6 @@ const EventAdd = () => {
             renderInput={(params) => <TextField {...params} />}
             minDate={startTime}
             onError= {() => {handleDateError(true)}}
-            helperText="zamn"
             />
             { dateError ? <FormHelperText error={dateError}>End date is before start date</FormHelperText> : null}
           </FormControl>
