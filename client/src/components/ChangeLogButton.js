@@ -8,7 +8,14 @@ function ChangeLogButton(props) {
       <div className="change-log-button-inner">
         <FontAwesomeIcon icon={faTimes} className="close-btn" onClick={() => props.setTrigger(false)} /> 
         { props.children }
+
+        <div className='scroll-bg'>
+          <div className='scroll-div'> 
+            <h1>Change Log</h1>   
+          </div>
+        </div>
       </div>
+      
     </div>
   ) : "";
 }
