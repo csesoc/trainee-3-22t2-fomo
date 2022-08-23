@@ -4,8 +4,8 @@ import { flexbox } from '@mui/system';
 import { LocalizationProvider, DesktopDatePicker, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { FaCalendarPlus } from 'react-icons/fa';
-import useAuth from "../hooks/useAuth";
-import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import useAuth from "../../hooks/useAuth";
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useNavigate } from 'react-router-dom';
 const titleStyle = {
   margin: '10px',

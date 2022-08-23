@@ -1,13 +1,13 @@
-import mainlogo from '../mainlogo.png' 
+import mainlogo from '../../mainlogo.png' 
 
 import { FaInfo, FaClock } from "react-icons/fa"
 import EventAdd from './EventAdd';
-import LoginIcon from './LoginRegister/LoginIcon';
-import Profile from './LoginRegister/Profile';
+import LoginIcon from '../LoginRegister/LoginIcon';
+import Profile from '../LoginRegister/Profile';
 import './FrontGeneral.css'
 import { useState } from 'react'; 
 import InfoButton from './InfoButton';
-import ChangeLogButton from './ChangeLogButton';
+import ChangeLogButton from '../NavBar/ChangeLogButton';
 
 
 const FrontGeneral = () => {

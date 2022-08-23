@@ -1,6 +1,7 @@
 import { PopperUnstyled } from "@mui/base" 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import Timeline from './Timeline.js'
 
 function ChangeLogButton(props) {
   return (props.trigger) ? (
@@ -11,7 +12,7 @@ function ChangeLogButton(props) {
 
         <div className='scroll-bg'>
           <div className='scroll-div'> 
-            <h1>Change Log</h1>   
+            <Timeline/>   
           </div>
         </div>
       </div>
