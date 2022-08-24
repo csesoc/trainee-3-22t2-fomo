@@ -35,6 +35,7 @@ const Register = () => {
       const res = await axiosPrivate.post('/register', {
         username: inputs.username,
         password: inputs.password,
+        email: inputs.email
       }) 
       setAuth({ accessToken: res.data.accessToken });
       setInputs({ 
