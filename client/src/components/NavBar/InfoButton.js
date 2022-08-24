@@ -11,6 +11,7 @@ function InfoButton(props) {
         <div className='scroll-bg'>
             <div className='scroll-div'> 
               <h1>FOMO</h1>
+              <br />
               <p>♡ Never let your bad organisation skills make you feel fomo again ♡</p>
               <br />
               <h3>How to Use</h3>

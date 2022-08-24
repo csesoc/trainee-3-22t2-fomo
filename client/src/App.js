@@ -1,7 +1,7 @@
 import './App.css';
 import Login from './components/LoginRegister/Login';
 import Register from './components/LoginRegister/Register';
-import FrontGeneral from './components/FrontGeneral'
+import FrontGeneral from './components/NavBar/FrontGeneral'
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import { AdminProvider } from './context/AdminProvider';
@@ -22,7 +22,7 @@ function App() {
             path="/admin" 
             element={
               <AdminProvider>
-                <FrontGeneral />
+                <FrontGeneral />  
               </AdminProvider>
             } 
           />
