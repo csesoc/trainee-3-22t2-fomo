@@ -12,6 +12,7 @@ function ChangeLogButton(props) {
 
         <div className='scroll-bg'>
           <div className='scroll-div'> 
+            <h1>Change Log</h1>
             <OppositeContentTimeline/>   
           </div>
         </div>

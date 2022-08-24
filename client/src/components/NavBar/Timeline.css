@@ -1,0 +1,19 @@
+
+.timeline_dot_header {
+    background-color: rgb(38, 128, 98);
+    color: black;
+} 
+
+.timeline_dot {
+    border-color: rgb(38, 128, 98);
+} 
+
+.timeline_date {
+    color: rgb(58, 241, 88);
+} 
+ 
+
+.timeline_content {
+    color: aliceblue;
+}
+ 
