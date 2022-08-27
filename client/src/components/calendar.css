@@ -25,3 +25,11 @@
   margin: 0;
   color: #FFF;
 }
+
+.fc { /* the calendar root */
+
+  max-width: 1000px;
+  max-height: calc(100vh - 50px - 80px);
+  margin: 0 auto;
+  padding: 30px 0px 9px 9px;
+}
