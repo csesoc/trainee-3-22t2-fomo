@@ -18,8 +18,8 @@ const EventAdd = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => {setOpen(true); setTags([])};
   const handleClose = () => {setOpen(false); setTags([]); console.log(inputs.description)};
-  const [startTime, setStartTime] = useState(new Date('2022-07-25T20:00:00'));
-  const [endTime, setEndTime] = useState(new Date('2022-07-25T20:00:00'));
+  const [startTime, setStartTime] = useState(new Date(Date.now()));
+  const [endTime, setEndTime] = useState(new Date(Date.now()));
   const [dateError, setDateError] = useState(false);
   const [tags, setTags] = useState([]);
   const [inputs, setInputs] = useState({
@@ -116,6 +116,7 @@ const EventAdd = () => {
               value={startTime}
               onChange={handleStartChange}
               renderInput={(params) => <TextField {...params} />}
+              disablePast={true}
               error={true}
               />
           </FormControl>
@@ -126,6 +127,7 @@ const EventAdd = () => {
             onChange={handleEndChange}
             renderInput={(params) => <TextField {...params} />}
             minDate={startTime}
+            disablePast={true}
             onError= {() => {handleDateError(true)}}
             />
             { dateError ? <FormHelperText error={dateError}>End date is before start date</FormHelperText> : null}
