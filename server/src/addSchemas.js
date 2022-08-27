@@ -5,9 +5,9 @@ fomodb.command({
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["societyId", "eventName", "start", 'end', "description", "tags"],
+            required: ["eventName", "start", 'end', "description", "tags", "societyName"],
             properties: {
-                societyId: {
+                societyName: {
                     bsonType: "string"
                 },
                 eventName: {
