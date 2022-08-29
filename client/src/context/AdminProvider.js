@@ -4,7 +4,8 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 const AdminContext = createContext({});
 
 export const AdminProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
+  const [showProfile, setShowProfile] = useState(false);
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
@@ -14,7 +15,7 @@ export const AdminProvider = ({ children }) => {
   }, []);
 
   return (
-    <AdminContext.Provider value={user}>
+    <AdminContext.Provider value={{ user, setUser, showProfile, setShowProfile }}>
       {children}
     </AdminContext.Provider>
   );
