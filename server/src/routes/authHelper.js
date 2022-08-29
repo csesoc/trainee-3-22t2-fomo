@@ -1,4 +1,4 @@
-import {fomoUsers} from '../database.js'
+import {fomoUsers, fomoResetTokens} from '../database.js'
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -102,6 +102,41 @@ export async function login(username, password) {
         });
     return {accessToken, refreshToken};
 }
+
+export async function resetPassword(email) {
+    // Check for missing parameters
+    if (!email) {
+        return {error : 'email is missing!'};
+    }
+
+    // Check if user exists
+    let user = await fomoUsers.findOne({ email: email });
+    if (!user) {
+        return {error: 'user not found!'};
+    }
+
+    // delete existing token if any
+    let curtoken = await fomoResetTokens.findOne({ email: email });
+    if (curtoken) {
+        await fomoResetTokens.deleteOne(curtoken);
+    }
+
+    // produce reset token
+    let salt = crypto.randomBytes(16).toString('hex');
+    let hash = crypto.createHmac('sha512', salt)
+    let resetToken = crypto.randomBytes(32).toString("hex");
+    hash.update(resetToken);
+    let hashed = hash.digest('hex');
+    
+    await fomoResetTokens.insertOne({
+        createdAt: new Date(),
+        email: email,
+        token: hashed
+    });
+
+    return resetToken
+}
+
 
 /**
  * Checks if the token is for a valid user

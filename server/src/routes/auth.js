@@ -1,6 +1,6 @@
 import express from 'express'
 const router = express.Router();
-import { register, login } from './authHelper.js'
+import { register, login, resetPassword } from './authHelper.js'
 import { fomoUsers } from '../database.js'
 import jwt from 'jsonwebtoken'
 
@@ -117,5 +117,24 @@ router.get('/logout', async (req, res, next) => {
     }
 });
 
+/*
+Given a valid email, sends link to email to reset password
+{
+    email: string
+}
+*/ 
+router.post('/resetpassword', async (req, res, next) => {
+    try {
+    const tokens = await resetPassword(req.body.email);
+    if (tokens.error !== undefined) {
+        res.status(400).send({ error: tokens.error});
+        return;
+    }
+    console.log(tokens);
+    res.status(200).send("SUCCESS");
+    } catch (err) {
+        next(err)
+    }
+});
 
 export { router as default}
