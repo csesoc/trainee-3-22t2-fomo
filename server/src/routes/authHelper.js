@@ -1,6 +1,7 @@
 import {fomoUsers, fomoResetTokens} from '../database.js'
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import { sendEmail } from '../utils/emails/sendEmail.js';
 import dotenv from 'dotenv';
 dotenv.config();
 /**
@@ -103,7 +104,7 @@ export async function login(username, password) {
     return {accessToken, refreshToken};
 }
 
-export async function resetPassword(email) {
+export async function resetPasswordReq(email) {
     // Check for missing parameters
     if (!email) {
         return {error : 'email is missing!'};
@@ -122,8 +123,7 @@ export async function resetPassword(email) {
     }
 
     // produce reset token
-    let salt = crypto.randomBytes(16).toString('hex');
-    let hash = crypto.createHmac('sha512', salt)
+    let hash = crypto.createHmac('sha512', process.env.RESET_TOKEN_SECRET)
     let resetToken = crypto.randomBytes(32).toString("hex");
     hash.update(resetToken);
     let hashed = hash.digest('hex');
@@ -134,7 +134,34 @@ export async function resetPassword(email) {
         token: hashed
     });
 
-    return resetToken
+    const link = `http:///localhost:5000/resetpasswordres?token=${resetToken}`;
+    console.log(sendEmail(email, "Password Reset", { link: link }, "./templates/resetPassword.handlebars").then(result => console.log(result)));
+
+    return resetToken;
+}
+
+export async function resetPasswordRes(token, password) {
+    // Hash given token first
+    let hash = crypto.createHmac('sha512', process.env.RESET_TOKEN_SECRET);
+    hash.update(token);
+    let hashed = hash.digest('hex');
+
+    // Check if resetToken still valid
+    let user = await fomoResetTokens.findOne({ token: hashed });
+    if (!user) {
+        return {error: 'Invalid Token / Token has expired'};
+    }
+
+    // hash password
+    let passwordSalt = crypto.randomBytes(16).toString('hex');
+    let passwordHash = crypto.createHmac('sha512', salt);
+    passwordHash.update(password);
+    let passwordHashed = passwordHash.digest('hex');
+
+    await fomoUsers.updateOne(
+        { email: user.email },
+        { $set: { password: passwordHashed }}
+    )
 }
 
 
