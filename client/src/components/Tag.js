@@ -1,9 +1,10 @@
 import React from 'react'
 
-const Tag = ({ tag }) => {
+const Tag = ({ tag, updateTags }) => {
 
   const onClick = (e) => {
     e.currentTarget.classList.toggle('tag-active')
+    updateTags(tag)
   }
 
   return (
