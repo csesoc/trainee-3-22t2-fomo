@@ -3,7 +3,8 @@ import { fomoUsers } from '../database.js';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
+    try {
     const cookies = req.cookies;
     console.log('got the cookies', cookies);
     if (!cookies?.jwt) return res.status(401).send({error: 'No cookie'});
@@ -26,6 +27,9 @@ router.get('/', async (req, res) => {
             res.json({ accessToken });
         }
     )
+    } catch (err) {
+        next(err);
+    }
 });
 
 export { router as default }
