@@ -134,7 +134,7 @@ export async function resetPasswordReq(email) {
         token: hashed
     });
 
-    const link = `http:///localhost:5000/resetpasswordres?token=${resetToken}`;
+    const link = `http:///localhost:3000/resetpasswordres/${resetToken}`;
     sendEmail(email, "Password Reset", { link: link }, "./templates/resetPassword.handlebars");
 
     return resetToken;

@@ -47,7 +47,7 @@ const ResetReq = () => {
       { !success && <div className={styles.input}>
 				{/* FAIL EMAIL NOT FOUND MESSAGE */}
 				<Alert severity='error' fullwidth sx={{ display: success === false ? 'flex': 'none'}}>
-					The given email is not associated with any account yet. Sign Up instead?
+					The given email is not associated with any account yet. <a href='http://localhost:3000/register'>Sign Up</a> instead?
 				</Alert>
         {/*EMAIL INPUT*/}
         <div className={styles.miniInput}>
