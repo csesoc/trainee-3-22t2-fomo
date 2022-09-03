@@ -1,6 +1,7 @@
 import './App.css';
 import Login from './components/LoginRegister/Login';
 import Register from './components/LoginRegister/Register';
+import ResetReq from './components/ResetPassword/ResetReq';
 import FrontGeneral from './components/FrontGeneral'
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
@@ -15,6 +16,7 @@ function App() {
         {/* public routes */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/resetpasswordreq" element={<ResetReq />} />
         <Route path="/" element={<FrontGeneral />} />
         {/* protect the following routes */}
         <Route element={<RequireAuth />}>
