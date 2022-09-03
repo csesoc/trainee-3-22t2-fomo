@@ -125,32 +125,32 @@ Given a valid email, sends link to email to reset password
 */ 
 router.post('/resetpasswordreq', async (req, res, next) => {
     try {
-    const tokens = await resetPasswordReq(req.body.email);
-    if (tokens.error !== undefined) {
-        res.status(400).send({ error: tokens.error});
-        return;
-    }
-    console.log(tokens);
-    res.status(200).send("SUCCESS");
-    } catch (err) {
-        next(err)
-    }
+        const token = await resetPasswordReq(req.body.email);
+        if (token.error !== undefined) {
+            res.status(400).send({ error: token.error });
+            return;
+        }
+        console.log(token)
+        res.status(200).send("SUCCESS");
+        } catch (err) {
+            next(err)
+        }
 });
 
 /*
-Given a valid email, sends link to email to reset password
+Given a token and password, if token hasn't expired update the corresponding user's password
 {
-    email: string
+    token: string
+    password: string
 }
 */ 
 router.post('/resetpasswordres', async (req, res, next) => {
     try {
-    const tokens = await resetPasswordRes(req.body.email);
-    if (tokens.error !== undefined) {
-        res.status(400).send({ error: tokens.error});
+    const result = await resetPasswordRes(req.body.token, req.body.password);
+    if (result.error !== undefined) {
+        res.status(400).send({ error: result.error});
         return;
     }
-    console.log(tokens);
     res.status(200).send("SUCCESS");
     } catch (err) {
         next(err)

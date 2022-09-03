@@ -135,7 +135,7 @@ export async function resetPasswordReq(email) {
     });
 
     const link = `http:///localhost:5000/resetpasswordres?token=${resetToken}`;
-    console.log(sendEmail(email, "Password Reset", { link: link }, "./templates/resetPassword.handlebars").then(result => console.log(result)));
+    sendEmail(email, "Password Reset", { link: link }, "./templates/resetPassword.handlebars");
 
     return resetToken;
 }
@@ -147,21 +147,24 @@ export async function resetPasswordRes(token, password) {
     let hashed = hash.digest('hex');
 
     // Check if resetToken still valid
-    let user = await fomoResetTokens.findOne({ token: hashed });
-    if (!user) {
+    let resetToken = await fomoResetTokens.findOne({ token: hashed });
+    if (!resetToken) {
         return {error: 'Invalid Token / Token has expired'};
     }
 
     // hash password
-    let passwordSalt = crypto.randomBytes(16).toString('hex');
-    let passwordHash = crypto.createHmac('sha512', salt);
+    let user = await fomoUsers.findOne({ email: resetToken.email });
+    let passwordSalt = user.salt;
+    let passwordHash = crypto.createHmac('sha512', passwordSalt);
     passwordHash.update(password);
     let passwordHashed = passwordHash.digest('hex');
-
+    
     await fomoUsers.updateOne(
         { email: user.email },
         { $set: { password: passwordHashed }}
     )
+    console.log("HASHED PASSWORD:", passwordHashed);
+    return {success: "Success"}
 }
 
 
