@@ -1,6 +1,6 @@
 .searchBarContainer {
-    width: 430px;
-    margin: 100px auto;
+    width: 100%;
+    margin-top: 30px;
   }
   
   .searchBar {

@@ -8,7 +8,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import axios from "../config/axios";
 
-import { Dialog, Box } from "@mui/material";
+import { Dialog, Box, Grid,  } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { getDate, format } from "date-fns";
 
@@ -141,16 +141,15 @@ const Calendar = () => {
   // Update tag when clicked
   const updateTags = (tagName) => {
     let tagIndex = tags.findIndex((tag) => tag === tagName);
-    let newTags = [...tags]
+    let newTags = [...tags];
     if (tagIndex === -1) {
-      newTags.push(tagName)
-      setTags(newTags)
+      newTags.push(tagName);
+      setTags(newTags);
     } else {
       newTags.splice(tagIndex, 1);
-      setTags(newTags)
+      setTags(newTags);
     }
-
-    console.log(tags)
+    console.log(tags);
   }
 
   const handleEventClick = (info) => {
@@ -184,12 +183,6 @@ const Calendar = () => {
   }
   return (
     <div>
-    <FullCalendar
-      initialView="dayGridMonth"
-      plugins={[dayGridPlugin]}
-      events={events}
-      eventClick={handleEventClick}
-    />
     <Dialog open={open} onClose={handleClose}>
       <Box sx={{ padding: '15px', paddingTop: '0px' }}>
         <h1 style={{ marginTop: '10px', marginBottom: '2px'}}>{displayInfo.eventName}</h1>
@@ -199,9 +192,23 @@ const Calendar = () => {
         <p style={{ whiteSpace: 'pre-line'}}>{displayInfo.description}</p>
       </Box>
     </Dialog>
-    <TagFilter tags={tags} tagNames={tagNames} updateTags={updateTags}/>
-    <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
-    <SocFollowing societies={fullSocList} delSociety={delSociety}/>
+    <Grid container spacing={2} sx={{ padding: '15px' }}>
+      <Grid item xs={8}>
+        <FullCalendar
+          initialView="dayGridMonth"
+          plugins={[dayGridPlugin]}
+          events={events}
+          eventClick={handleEventClick}
+        />
+      </Grid>
+      <Grid item xs={2}>
+        <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
+        <SocFollowing societies={fullSocList} delSociety={delSociety}/>
+      </Grid>
+      <Grid item xs={2}>
+        <TagFilter tags={tags} tagNames={tagNames} updateTags={updateTags}/>
+      </Grid>
+    </Grid>
     </div>
   )
 }
