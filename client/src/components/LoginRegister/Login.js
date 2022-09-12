@@ -2,7 +2,7 @@ import { useState } from 'react'
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import { Button } from '@mui/material'
+import { Button, Alert } from '@mui/material'
 import styles from './Login.module.css'
 
 const Login = () => {
@@ -10,6 +10,7 @@ const Login = () => {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   
+  const [success, setSuccess] = useState(true);
   const [inputs, setInputs] = useState({
     username: '',
     password: '',
@@ -34,8 +35,7 @@ const Login = () => {
       setInputs({ username: '', password: '' });
       navigate('/admin', { replace: true });
     } catch (err) {
-      navigate('/login');
-      console.log(err)
+      setSuccess(false);
     }
   }
     
@@ -46,6 +46,10 @@ const Login = () => {
       <h1 className={styles.headerText}>Login</h1>
       {/*INPUT BARS*/}
       <div className={styles.input}>
+        {/* INCORRECT PASSWORD/USER */}
+        <Alert severity='error' fullwidth  sx={{ display: success ? 'none': 'flex', mt: '5%' }}>
+          The username or password is incorrect. <a className={styles.alertText} href='http://localhost:3000/resetpasswordreq'>Forgot Password</a>
+        </Alert>
         {/*USERNAME INPUT*/}
         <div className={styles.miniInput}>
           <h3 className={styles.inputText}>Username</h3>

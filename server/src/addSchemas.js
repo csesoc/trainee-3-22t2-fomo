@@ -93,4 +93,26 @@ fomodb.command({
     validationAction: "error",
 });
 
+fomodb.command({
+    collMod: "fomoResetTokens",
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["createdAt", "email", "token"],
+            properties: {
+                createdAt: {
+                    bsonType: "Date",
+                },
+                email: {
+                    bsonType: "string"
+                },
+                token: {
+                    bsonType: "string",
+                }
+            }
+        }
+    },
+    validationAction: "error",
+});
+
 console.log('finished');

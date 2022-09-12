@@ -1,6 +1,6 @@
 import express from 'express'
 const router = express.Router();
-import { register, login } from './authHelper.js'
+import { register, login, resetPasswordReq, resetPasswordRes } from './authHelper.js'
 import { fomoUsers } from '../database.js'
 import jwt from 'jsonwebtoken'
 
@@ -117,5 +117,44 @@ router.get('/logout', async (req, res, next) => {
     }
 });
 
+/*
+Given a valid email, sends link to email to reset password
+{
+    email: string
+}
+*/ 
+router.post('/resetpasswordreq', async (req, res, next) => {
+    try {
+        const token = await resetPasswordReq(req.body.email);
+        if (token.error !== undefined) {
+            res.status(400).send({ error: token.error });
+            return;
+        }
+        console.log(token)
+        res.status(200).send("SUCCESS");
+        } catch (err) {
+            next(err)
+        }
+});
+
+/*
+Given a token and password, if token hasn't expired update the corresponding user's password
+{
+    token: string
+    password: string
+}
+*/ 
+router.post('/resetpasswordres', async (req, res, next) => {
+    try {
+    const result = await resetPasswordRes(req.body.token, req.body.password);
+    if (result.error !== undefined) {
+        res.status(400).send({ error: result.error});
+        return;
+    }
+    res.status(200).send("SUCCESS");
+    } catch (err) {
+        next(err)
+    }
+});
 
 export { router as default}
