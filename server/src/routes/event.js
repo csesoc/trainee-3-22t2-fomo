@@ -51,6 +51,8 @@ router.post('/add', async (req, res, next) => {
     if (foundSociety.length <= 0) {
         return res.status(400).send({ error : 'Invalid society id' });
     }
+    let newEvent = req.body
+    newEvent.societyName = foundSociety[0].societyName
     await fomoEvents.insertOne(req.body)
     res.status(200).send({ message : 'Success'})
     } catch(err) {

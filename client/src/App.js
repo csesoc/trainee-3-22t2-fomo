@@ -7,6 +7,7 @@ import RequireAuth from './components/RequireAuth';
 import { AdminProvider } from './context/AdminProvider';
 import { Routes, Route } from 'react-router-dom';
 
+
 function App() {
   return (
     <Routes>
