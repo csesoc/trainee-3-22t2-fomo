@@ -203,7 +203,7 @@ const Calendar = () => {
       </Grid>
       <Grid item xs={2}>
         <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
-        <SocFollowing societies={fullSocList} delSociety={delSociety}/>
+        <SocFollowing societies={societies} delSociety={delSociety}/>
       </Grid>
       <Grid item xs={2}>
         <TagFilter tags={tags} tagNames={tagNames} updateTags={updateTags}/>

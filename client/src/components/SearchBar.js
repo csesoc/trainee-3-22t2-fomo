@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import SearchMatch from './SearchMatch'
-import './SearchBar.css'
+import styles from './SearchBar.module.css'
 
 const SearchBar = ({ addSociety, fullSocList }) => {
 
   const [input, setInput] = useState('')
   
   return (
-    <div className='searchBarContainer'>
+    <div className={styles.searchBarContainer}>
       <input 
         type='text' 
         placeholder='&#xF002; Find a Society!' 
         onChange={e => setInput(e.target.value.toLowerCase())}
-        className='searchBar'
+        className={styles.searchBar}
       />
 
       {

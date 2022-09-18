@@ -1,0 +1,49 @@
+.followBox {
+  background-color: white;
+  color: #64DF79;
+
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 30px;
+  padding-bottom: 20px;
+}
+
+.followSoc {
+  background-color: #E0E0E0;
+  transition: background-color 250ms linear;
+  color: #988C8C;
+
+  height: 35px;
+  width: 80%;
+  margin-top: 5px;
+  border-radius: 10px;
+  padding: 0 5px;
+
+  font-size: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+
+.followSoc p {
+  margin: 0;
+  font-family: Roboto;
+  font-weight: 500;
+}
+
+.followSoc:hover {
+  background-color: #B9EEFF;
+  transition: background-color 400ms linear;
+}
+
+.followSocActive {
+  background-color: #B9EEFF;
+}
