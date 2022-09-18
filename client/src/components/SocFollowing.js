@@ -1,13 +1,13 @@
 import Soc from './Soc';
 import styles from './Soc.module.css'
 
-const SocFollowing = ({ societies, delSociety }) => {
+const SocFollowing = ({ societies, addSociety, delSociety }) => {
 
   return (
     <div className={styles.followBox}>
       <h1>Following</h1>
       {societies.map((society) => (
-        <Soc key={society.societyId} society={society} delSociety={delSociety} />
+        <Soc key={society.societyId} society={society} addSociety={addSociety} delSociety={delSociety} />
       ))}
     </div>
   )

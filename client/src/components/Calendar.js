@@ -1,5 +1,6 @@
 import React from "react";
-import "./calendar.css"
+import './calendar.css';
+import styles from './Soc.module.css';
 
 import SocFollowing from './SocFollowing';
 import SearchBar from './SearchBar';
@@ -127,7 +128,7 @@ const Calendar = () => {
 
   // Add a society to the following box
   const addSociety = (id) => {
-    const newSoc = fullSocList.filter((society) => society.societyId === id)[0]
+    const newSoc = fullSocList.filter((society) => society._id === id)[0]
     if (!societies.includes(newSoc)) {
       setSocieties([...societies, newSoc])
     }
@@ -135,8 +136,22 @@ const Calendar = () => {
 
   // delete a society from following box
   const delSociety = (id) => {
-    setSocieties(societies.filter((society) => society.societyId !== id))
+    setSocieties(societies.filter((society) => society._id !== id))
   }
+
+  // all societies in the societies array are "chosen" (blue color) in the following box
+  useEffect(() => {
+    const socs = document.querySelectorAll(`.${styles.followSoc}`);
+    const socNames = societies.map((society) => society.societyName);
+    console.log(societies, socNames);
+    for (const soc of socs) {
+      if (socNames.includes(soc.textContent)) {
+        soc.classList.add(`${styles.followSocActive}`);
+      } else {
+        soc.classList.remove(`${styles.followSocActive}`);
+      }
+    }
+  }, [societies]);
   
   // Update tag when clicked
   const updateTags = (tagName) => {
@@ -203,7 +218,7 @@ const Calendar = () => {
       </Grid>
       <Grid item xs={2}>
         <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
-        <SocFollowing societies={societies} delSociety={delSociety}/>
+        <SocFollowing societies={fullSocList} addSociety={addSociety} delSociety={delSociety}/>
       </Grid>
       <Grid item xs={2}>
         <TagFilter tags={tags} tagNames={tagNames} updateTags={updateTags}/>

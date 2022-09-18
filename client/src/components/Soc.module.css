@@ -10,6 +10,10 @@
 
   margin-top: 30px;
   padding-bottom: 20px;
+
+  /* should change to math not guess and check calue lol */
+  max-height: 49vh;
+  overflow-y: scroll;
 }
 
 .followSoc {
@@ -28,15 +32,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  white-space: nowrap;
-  overflow-x: scroll;
 }
 
 .followSoc p {
   margin: 0;
   font-family: Roboto;
   font-weight: 500;
+
+  white-space: nowrap;
+  overflow-x: scroll;
+  width: 80%;
 }
 
 .followSoc:hover {
