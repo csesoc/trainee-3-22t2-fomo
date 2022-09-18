@@ -34,27 +34,34 @@ router.use(verifyJWT);
 Adds an event to the database 
 Body should contain the following structure:
 {
-    eventId : String,
-    societyId : Integer,
+    societyId: String,
     eventName : String,
-    date : Integer,
+    start: Integer,
+    end: Integer,
     description : String,
+    tags: String[],
+    societyName: String
 }
 NOTE: date is in Unix epoch time
 
 */
 router.post('/add', async (req, res, next) => {
     try {
-    // Check if societyId is valid
-    let societyIdObj = ObjectId(req.body.societyId);
-    let foundSociety = await fomoSocieties.find({ _id: societyIdObj }).toArray();
-    if (foundSociety.length <= 0) {
-        return res.status(400).send({ error : 'Invalid society id' });
-    }
-    let newEvent = req.body
-    newEvent.societyName = foundSociety[0].societyName
-    await fomoEvents.insertOne(req.body)
-    res.status(200).send({ message : 'Success'})
+        // Check if societyId is valid
+        let societyIdObj = ObjectId(req.body.societyId);
+        let foundSociety = await fomoSocieties.find({ _id: societyIdObj }).toArray();
+        if (foundSociety.length <= 0) {
+            return res.status(400).send({ error : 'Invalid society id' });
+        }
+        // Check if user is a user of the society (can edit/add/remove events)
+        foundSociety = foundSociety[0]
+        if (!foundSociety.users.includes(req.userId)) {
+            return res.status(403).send({ error : 'Auth user is not a member of the society' });
+        }
+        let newEvent = req.body
+        newEvent.societyName = foundSociety[0].societyName
+        await fomoEvents.insertOne(req.body)
+        res.status(200).send({ message : 'Success'})
     } catch(err) {
         next(err);
     }
@@ -65,12 +72,20 @@ Deletes an event from the database
 
 Body should contain the following structure:
 {
-    eventId: Integer,
+    eventId: string,
 }
 */
 router.delete('/del', async (req, res, next) => {
     try {
-    await fomoEvents.deleteOne({ eventId: req.body.eventId })
+    // Check if user is a user of the society (can edit/add/remove events)
+    let events = await fomoEvents.find({ _id: ObjectId(eventId) }).toArray();
+    let societyId = events[0].societyId
+    let societies = await fomoSocieties.find({ _id: ObjectId(societyId) }).toArray();
+    let foundSociety = societies[0]
+    if (!foundSociety.users.includes(req.userId)) {
+        return res.status(403).send({ error : 'Auth user is not a member of the society' });
+    }
+    await fomoEvents.deleteOne({ _id: ObjectId(eventId) });
     res.status(200).send({ message: 'Success'})
     } catch(err) {
         next(err);
