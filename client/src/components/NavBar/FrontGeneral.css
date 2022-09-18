@@ -26,36 +26,7 @@
     margin: 10px; 
 }
 
-.info-button {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0,0,0,0.2);
-    color: rgb(255, 255, 255);
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
- 
-.info-button-inner {
-    position: relative; 
-    width: 100%;
-    max-width: 640px;
-    background-color: rgb(59, 56, 56);
-    border-radius: 10px; 
-}
-
-.info-button-inner .close-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    border-radius: 10px;
-    cursor: pointer;
-}
 
 .close-btn:hover{
     color: rgb(100,223,121);
@@ -91,12 +62,9 @@
     border-radius: 10px;
     cursor: pointer;
 }
+ 
 
 
-.creators ul{
-    display: flex;
-    justify-content: center; 
-}
 
 ::-webkit-scrollbar{
     width: 0.7em; 
@@ -115,21 +83,31 @@
 ::-webkit-scrollbar-thumb:hover{
     background: rgb(166, 245, 166);
     border-radius: 100vw;
+} 
+
+
+.info-block { 
+    background-color: rgb(34, 33, 33);
+    color: white;
 }
 
-.scroll-bg {  
-    margin: 10% auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.info-block h1{
+    text-align: center;
+}
+.info-block p {
+    text-align: left
 }
 
-.scroll-div {
-    background-color: rgb(59, 56, 56);
-    width: 90%; 
-    height: 600px;
-    overflow: hidden;
-    overflow-y: scroll;
-    padding-right: 25px;
-    padding-left: 25px;
+.creators {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }
+.creators li {
+    display: inline-block;
+    min-width: 5em;
+    margin: 0 0.5em;
+}
+ 
+

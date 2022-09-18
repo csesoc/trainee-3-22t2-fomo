@@ -20,10 +20,7 @@ const FrontGeneral = () => {
         <img className='logo' src={mainlogo} /> 
         <ul>
           <li> <EventAdd /> </li>
-
-          <li> <FaInfo onClick={() => setButtonPopup(true)}/> </li>
-          <InfoButton trigger={buttonPopup} setTrigger={setButtonPopup}>
-          </InfoButton>
+          <li> <InfoButton /></li>
           
           <li> <FaClock onClick={() => setButtonPopup2(true)}/> </li>
           <ChangeLogButton trigger={buttonPopup2} setTrigger={setButtonPopup2}> 
