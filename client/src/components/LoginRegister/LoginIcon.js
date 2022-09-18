@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg"
-import styles from './Profile.module.css'
+import AdminContext from '../../context/AdminProvider';
 
 const LoginIcon = () => {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const location = useLocation().pathname;
   const navigate = useNavigate();
+
+  const { profile, setShowProfile } = useContext(AdminContext);
 
   useEffect(() => {
     setLoggedIn(location === '/admin')
@@ -18,11 +20,11 @@ const LoginIcon = () => {
   }
 
   const viewProfile = async () => {
-    const profile = document.getElementById('profile');
-    profile.classList.toggle(styles.showProfile);
+    setShowProfile(true);
   }
 
   return (
+    // If we are at the /admin route we are logged in, show profile, else redirect to login
     <div>
       <CgProfile onClick={loggedIn ? viewProfile : loginRedirect}/>
     </div>
