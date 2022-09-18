@@ -38,6 +38,7 @@
 
 ::-webkit-scrollbar{
     width: 0.7em; 
+    background-color: rgb(34, 33, 33);
   }
   
 ::-webkit-scrollbar-track{
