@@ -90,10 +90,7 @@
     background-color: rgb(34, 33, 33);
     color: white;
 }
-
-.info-block h1{
-    text-align: center;
-}
+ 
 .info-block p {
     text-align: left
 }
@@ -108,6 +105,18 @@
     display: inline-block;
     min-width: 5em;
     margin: 0 0.5em;
+}
+
+.info-info {
+    text-align: center; 
+}
+
+.info-info h1, h3{
+    color: rgb(116, 255, 116); 
+}
+
+.info-info h4 {
+    font-weight: 10;
 }
  
 
