@@ -8,6 +8,7 @@ import './FrontGeneral.css'
 import { useState } from 'react'; 
 import InfoButton from './InfoButton';
 import ChangeLogButton from '../NavBar/ChangeLogButton';
+import Calendar from '../Calendar'; 
 
 
 const FrontGeneral = () => {
@@ -33,6 +34,7 @@ const FrontGeneral = () => {
        
       </div> 
       <Profile />
+      <Calendar />
     </div>
   )
 }
