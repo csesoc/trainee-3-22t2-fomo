@@ -35,7 +35,7 @@ const OppositeContentTimeline = () => {
           <FontAwesomeIcon icon={faTimes} onClick={handleClose}>Cancel</FontAwesomeIcon> 
       </DialogActions>
       <h1>Change Log</h1>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', padding: '30px' }}>   
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', padding: '30px', paddingTop:'0px'}}>   
 
         <React.Fragment>
       <Timeline position="alternate" >
@@ -50,46 +50,45 @@ const OppositeContentTimeline = () => {
 
         <TimelineItem>
           <TimelineOppositeContent className={"timeline_content"}>
-            The Birth of Fomo
+            Ready to use
           </TimelineOppositeContent>
           <TimelineSeparator> 
             <TimelineDot variant="outlined" className={"timeline_dot"}/>
             <TimelineConnector className={"timeline_line"} />
           </TimelineSeparator >
-          <TimelineContent className={"timeline_date"}>June 2022</TimelineContent>
+          <TimelineContent className={"timeline_date"}>Now</TimelineContent>
         </TimelineItem>
 
         <TimelineItem>
           <TimelineOppositeContent className={"timeline_date"}>
-            July 2022
+            August 2022
           </TimelineOppositeContent>
           <TimelineSeparator> 
             <TimelineDot variant="outlined" className={"timeline_dot"} />
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent className={"timeline_content"}>Made it better</TimelineContent>
+          <TimelineContent className={"timeline_content"}>Added Calendar</TimelineContent>
         </TimelineItem>
 
         <TimelineItem>
           <TimelineOppositeContent className={"timeline_content"}>
-            Made it even better
+            Decided on colour theme
           </TimelineOppositeContent>
           <TimelineSeparator> 
           <TimelineDot variant="outlined" className={"timeline_dot"} />
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent className={"timeline_date"}>August 2022</TimelineContent>
+          <TimelineContent className={"timeline_date"}>July 2022</TimelineContent>
         </TimelineItem>
 
         <TimelineItem>
           <TimelineOppositeContent className={"timeline_date"} >
-            Now
+            June 2022
           </TimelineOppositeContent>
           <TimelineSeparator> 
             <TimelineDot variant="outlined" className={"timeline_dot"} />
-            <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent className={"timeline_content"}>Made it even more better</TimelineContent>
+          <TimelineContent className={"timeline_content"}>Birth of FOMO</TimelineContent>
         </TimelineItem>
 
       </Timeline>
