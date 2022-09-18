@@ -32,36 +32,6 @@
     color: rgb(100,223,121);
 }
 
-
-.change-log-button {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0,0,0,0.2);
-    color: rgb(255, 255, 255);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
-.change-log-button-inner {
-    position: relative; 
-    width: 100%;
-    max-width: 640px;
-    background-color: rgb(59, 56, 56);
-    border-radius: 10px; 
-}
-
-.change-log-button-inner .close-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    border-radius: 10px;
-    cursor: pointer;
-}
  
 
 

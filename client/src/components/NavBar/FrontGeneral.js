@@ -6,9 +6,9 @@ import LoginIcon from '../LoginRegister/LoginIcon';
 import Profile from '../LoginRegister/Profile';
 import './FrontGeneral.css'
 import { useState } from 'react'; 
-import InfoButton from './InfoButton';
-import ChangeLogButton from '../NavBar/ChangeLogButton';
+import InfoButton from './InfoButton'; 
 import Calendar from '../Calendar'; 
+import OppositeContentTimeline from './Timeline';
 
 
 const FrontGeneral = () => {
@@ -21,11 +21,7 @@ const FrontGeneral = () => {
         <ul>
           <li> <EventAdd /> </li>
           <li> <InfoButton /></li>
-          
-          <li> <FaClock onClick={() => setButtonPopup2(true)}/> </li>
-          <ChangeLogButton trigger={buttonPopup2} setTrigger={setButtonPopup2}> 
-          </ChangeLogButton>
-
+          <li> <OppositeContentTimeline /> </li>
           <li> <LoginIcon /> </li>
         </ul>
        

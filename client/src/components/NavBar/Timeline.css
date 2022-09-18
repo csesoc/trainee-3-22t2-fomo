@@ -16,4 +16,12 @@
 .timeline_content {
     color: aliceblue;
 }
- 
+
+.change-log-block {
+    background-color: rgb(34, 33, 33);
+}
+
+.change-log-block h1 {
+    color: rgb(115, 221, 113);
+    text-align: center;
+}
