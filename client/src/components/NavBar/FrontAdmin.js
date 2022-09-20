@@ -1,4 +1,5 @@
 import mainlogo from '../../mainlogo.png' 
+import EventAdd from './EventAdd';
 import LoginIcon from '../LoginRegister/LoginIcon';
 import Profile from '../LoginRegister/Profile';
 import './FrontGeneral.css'
@@ -7,12 +8,13 @@ import Calendar from '../Calendar';
 import OppositeContentTimeline from './Timeline';
 
 
-const FrontGeneral = () => {
+const FrontAdmin = () => {
   return (
     <div>
       <div className='navBar'>
         <img className='logo' src={mainlogo} /> 
-        <ul> 
+        <ul>
+          <li> <EventAdd /> </li>
           <li> <InfoButton /></li>
           <li> <OppositeContentTimeline /> </li>
           <li> <LoginIcon /> </li>
@@ -26,4 +28,4 @@ const FrontGeneral = () => {
 }
 
  
-export default FrontGeneral
+export default FrontAdmin

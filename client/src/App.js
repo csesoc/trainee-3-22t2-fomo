@@ -8,6 +8,7 @@ import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import { AdminProvider } from './context/AdminProvider';
 import { Routes, Route } from 'react-router-dom';
+import FrontAdmin from './components/NavBar/FrontAdmin';
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
             path="/admin" 
             element={
               <AdminProvider>
-                <FrontGeneral />  
+                <FrontAdmin />  
               </AdminProvider>
             } 
           />
