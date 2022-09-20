@@ -8,16 +8,10 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import LaptopMacIcon from '@mui/icons-material/LaptopMac';
-import './Timeline.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FaClock } from "react-icons/fa"
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import {useState, useEffect} from 'react';
-import {Button, Modal, Typography, Box, Dialog, DialogContent, DialogTitle, DialogContentText, TextField, DialogActions, FormControl, InputLabel, OutlinedInput, FormHelperText, Checkbox, FormControlLabel}  from "@mui/material"
-import { flexbox } from '@mui/system';   
-const titleStyle = {
-  margin: '10px',
-}
+import './Timeline.css'; 
+import { FaClock } from "react-icons/fa" 
+import {useState} from 'react';
+import {Button, Box, Dialog, DialogActions}  from "@mui/material"
 
 
 const OppositeContentTimeline = () => {  
@@ -32,7 +26,7 @@ const OppositeContentTimeline = () => {
       
       <div className='change-log-block'>
       <DialogActions>
-          <FontAwesomeIcon icon={faTimes} onClick={handleClose}>Cancel</FontAwesomeIcon> 
+        <Button style={{'color':'green'}}onClick={handleClose}>X</Button> 
       </DialogActions>
       <h1>Change Log</h1>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', padding: '30px', paddingTop:'0px'}}>   
