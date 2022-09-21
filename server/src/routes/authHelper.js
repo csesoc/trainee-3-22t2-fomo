@@ -1,6 +1,7 @@
-import {fomoUsers} from '../database.js'
+import {fomoUsers, fomoResetTokens} from '../database.js'
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import { sendEmail } from '../utils/emails/sendEmail.js';
 import dotenv from 'dotenv';
 dotenv.config();
 /**
@@ -105,6 +106,70 @@ export async function login(username, password) {
         });
     return {accessToken, refreshToken};
 }
+
+export async function resetPasswordReq(email) {
+    // Check for missing parameters
+    if (!email) {
+        return {error : 'email is missing!'};
+    }
+
+    // Check if user exists
+    let user = await fomoUsers.findOne({ email: email });
+    if (!user) {
+        return {error: 'user not found!'};
+    }
+
+    // delete existing token if any
+    let curtoken = await fomoResetTokens.findOne({ email: email });
+    if (curtoken) {
+        await fomoResetTokens.deleteOne(curtoken);
+    }
+
+    // produce reset token
+    let hash = crypto.createHmac('sha512', process.env.RESET_TOKEN_SECRET)
+    let resetToken = crypto.randomBytes(32).toString("hex");
+    hash.update(resetToken);
+    let hashed = hash.digest('hex');
+    
+    await fomoResetTokens.insertOne({
+        createdAt: new Date(),
+        email: email,
+        token: hashed
+    });
+
+    const link = `http:///localhost:3000/resetpasswordres/${resetToken}`;
+    sendEmail(email, "Password Reset", { link: link }, "./templates/resetPassword.handlebars");
+
+    return resetToken;
+}
+
+export async function resetPasswordRes(token, password) {
+    // Hash given token first
+    let hash = crypto.createHmac('sha512', process.env.RESET_TOKEN_SECRET);
+    hash.update(token);
+    let hashed = hash.digest('hex');
+
+    // Check if resetToken still valid
+    let resetToken = await fomoResetTokens.findOne({ token: hashed });
+    if (!resetToken) {
+        return {error: 'Invalid Token / Token has expired'};
+    }
+
+    // hash password
+    let user = await fomoUsers.findOne({ email: resetToken.email });
+    let passwordSalt = user.salt;
+    let passwordHash = crypto.createHmac('sha512', passwordSalt);
+    passwordHash.update(password);
+    let passwordHashed = passwordHash.digest('hex');
+    
+    await fomoUsers.updateOne(
+        { email: user.email },
+        { $set: { password: passwordHashed }}
+    )
+    console.log("HASHED PASSWORD:", passwordHashed);
+    return {success: "Success"}
+}
+
 
 /**
  * Checks if the token is for a valid user

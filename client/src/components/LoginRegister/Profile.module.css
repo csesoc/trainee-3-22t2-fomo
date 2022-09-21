@@ -7,17 +7,6 @@
     color: #1CB82C;
     padding: 10px;
     border-radius: 20px;
-
-    margin-top: 2vw;
-    margin-right: 1vw;
-    right: 0;
-    position: absolute;
-
-    visibility: hidden;
-}
-
-.showProfile {
-    visibility: visible;
 }
 
 .curview {
@@ -40,8 +29,7 @@
     margin: 0;
     font-size: 50px;
     text-align: left;
-    color: #40E317;
-    overflow: scroll;
+    color: #40E317; 
 }
 
 .calendar {
