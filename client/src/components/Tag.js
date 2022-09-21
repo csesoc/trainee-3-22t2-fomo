@@ -9,7 +9,7 @@ const Tag = ({ tag, updateTags }) => {
 
   return (
     <div className='tag' onClick={onClick}>
-      <p className='tagText'>{tag}</p>
+      {tag}
     </div>
   )
 }

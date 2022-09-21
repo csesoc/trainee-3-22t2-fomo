@@ -143,7 +143,6 @@ const Calendar = () => {
   useEffect(() => {
     const socs = document.querySelectorAll(`.${styles.followSoc}`);
     const socNames = societies.map((society) => society.societyName);
-    console.log(societies, socNames);
     for (const soc of socs) {
       if (socNames.includes(soc.textContent)) {
         soc.classList.add(`${styles.followSocActive}`);
@@ -217,8 +216,10 @@ const Calendar = () => {
         />
       </Grid>
       <Grid item xs={2}>
-        <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
-        <SocFollowing societies={fullSocList} addSociety={addSociety} delSociety={delSociety}/>
+        <div className={styles.socWrapper}>
+          <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
+          <SocFollowing societies={fullSocList} addSociety={addSociety} delSociety={delSociety}/>
+        </div>
       </Grid>
       <Grid item xs={2}>
         <TagFilter tags={tags} tagNames={tagNames} updateTags={updateTags}/>

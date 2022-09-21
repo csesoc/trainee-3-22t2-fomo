@@ -1,59 +1,43 @@
 .tagContainer {
-    height: 65vh;
-    border-radius: 20px;
-    margin: 100px auto;
-    padding: 1.5% 3%;
-    
-    background-color: white;
+  /* make height and padding same as calendar col to align items */
+  box-sizing: border-box;
+  height: calc(100vh - 50px - 80px); 
 
-    display: flex;
-}
+  padding: 30px 0px 9px 0px;
+  border-radius: 20px;
 
-.tagTitle {
-    margin: 0;
-    margin-right: 3%;
-    width: 30%;
-
-    font-size: 2.7rem;
-    font-weight: 700;
-    line-height: 1.3;
-    text-align: left;
-}
-
-.tagTitle a {
-    font-size: 4rem;
-    font-weight: 600;
+  display: flex;
 }
 
 .tagList {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 2% 10%;
 }
 
 .tag {
-    background-color: greenyellow;
-    transition: background-color 250ms linear;
-    width: 20%;
-    margin-right: 5%;
-    margin-top: 2%;
-    border-radius: 20px;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: rgb(100,223,121);
+  transition: background-color 250ms linear;
+
+  width: fit-content;
+  height: 10%;
+  padding: 0 5px;
+  border-radius: 10px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 500;
 }
 
 .tag:hover {
-    background-color: #B9EEFF;
-    transition: background-color 400ms linear;
-  }
+  background-color: #B9EEFF;
+  transition: background-color 400ms linear;
+}
 
 .tag-active {
-background-color: #B9EEFF;
+  background-color: #B9EEFF;
 }
 
-.tagText {
-    margin: 0;
-    font-family: Roboto;
-    font-weight: 500;
-}

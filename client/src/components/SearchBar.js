@@ -10,25 +10,26 @@ const SearchBar = ({ addSociety, fullSocList }) => {
     <div className={styles.searchBarContainer}>
       <input 
         type='text' 
-        placeholder='&#xF002; Find a Society!' 
+        placeholder='&#xF002; Society!' 
         onChange={e => setInput(e.target.value.toLowerCase())}
         className={styles.searchBar}
       />
-
-      {
-        // autofilter data based on input
-        fullSocList.filter((society) => {
-          if (input === '') {
-            // No input
-            return null
-          } else if (society.societyName.toLowerCase().includes(input.toLowerCase())) {
-            // Check for match
-            return society
-          }
-        }).map((society) => (
-          <SearchMatch key={society.societyId} society={society} addSociety={addSociety} />
-        ))
-      }
+      <div className={styles.searchMatches}>
+        {
+          // autofilter data based on input
+          fullSocList.filter((society) => {
+            if (input === '') {
+              // No input
+              return null
+            } else if (society.societyName.toLowerCase().includes(input.toLowerCase())) {
+              // Check for match
+              return society
+            }
+          }).map((society) => (
+            <SearchMatch key={society.societyId} society={society} addSociety={addSociety} />
+          ))
+        }
+      </div>
     </div>
   )
 }
