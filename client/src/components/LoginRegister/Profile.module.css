@@ -29,8 +29,7 @@
     margin: 0;
     font-size: 50px;
     text-align: left;
-    color: #40E317;
-    overflow: scroll; /* remove */
+    color: #40E317; 
 }
 
 .calendar {
