@@ -30,7 +30,7 @@
     font-size: 50px;
     text-align: left;
     color: #40E317;
-    overflow: scroll;
+    overflow: scroll; /* remove */
 }
 
 .calendar {

@@ -1,6 +1,7 @@
 import { FaInfo } from "react-icons/fa"
 import {useState} from 'react';
 import {Button, Box, Dialog, DialogContent, DialogActions }  from "@mui/material"
+import './InfoButton.css'
 
 
 const InfoButton = () => {  

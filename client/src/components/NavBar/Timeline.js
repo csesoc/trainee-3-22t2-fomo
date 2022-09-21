@@ -84,6 +84,7 @@ const OppositeContentTimeline = () => {
           </TimelineSeparator>
           <TimelineContent className={"timeline_content"}>Birth of FOMO</TimelineContent>
         </TimelineItem>
+ 
 
       </Timeline>
     </React.Fragment>
