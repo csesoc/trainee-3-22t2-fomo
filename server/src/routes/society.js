@@ -2,7 +2,6 @@ import express, { application } from 'express'
 import { ObjectId } from 'mongodb';
 import { fomoSocieties, fomoUsers } from '../database.js';
 import { verifyJWT } from '../middleware/verifyJWT.js';
-import { ObjectId } from 'mongodb';
 const router = express.Router();
 
 /*
@@ -113,7 +112,7 @@ Body should contain the following structure:
 */
 router.post('/del', async (req, res) => {
     try {
-    await fomoSocieties.deleteOne({ societyId: req.body.societyId })
+        await fomoSocieties.deleteOne({ societyId: req.body.societyId })
     res.status(200).send({ message : 'Success'})
     } catch (err) {
         next(err);
@@ -124,11 +123,39 @@ router.post('/del', async (req, res) => {
 Adds a guild (discord server) to the user's society
 {
     societyName: String,
+    username: String,
     guildId: String
 }
 */
-router.post('/add/guild', async (req, res) => {
+router.post('/addGuild', async (req, res, next) => {
     try {
+        // Check if there are dev permissions
+        let authUser = await fomoUsers.findOne({ _id: ObjectId(req.userId) })
+        if (authUser.dev !== true) {
+            res.status(403).send({ error : 'Not dev account' });
+            return;
+        }
+        // Check if society exists
+        let society = await fomoSocieties.findOne({ societyName: req.body.societyName });
+        if (!society) {
+            res.status(400).send({ error : 'Society with given name does not exist'});
+            return;
+        }
+        // Check if user is a part of society
+        let user = await fomoUsers.findOne({ username: req.body.username });
+        let userId = user._id.toString();
+        if (!society.admins.includes(userId)) {
+            res.status(400).send({ error : 'Given user does not have permission' });
+            return;
+        }
+        // Add the guild
+        await fomoSocieties.updateOne({ _id: society._id }, {
+            $set: {
+                guildId: req.body.guildId                                  
+            }
+        });
+        res.status(200).send({ message : 'Success' });
+        return
     } catch (err) {
         next(err);
     }

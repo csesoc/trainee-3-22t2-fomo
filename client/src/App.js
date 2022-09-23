@@ -4,7 +4,6 @@ import Login from './components/LoginRegister/Login';
 import Register from './components/LoginRegister/Register';
 import ResetReq from './components/ResetPassword/ResetReq';
 import ResetRes from './components/ResetPassword/ResetRes';
-import FrontGeneral from './components/FrontGeneral'
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import { AdminProvider } from './context/AdminProvider';

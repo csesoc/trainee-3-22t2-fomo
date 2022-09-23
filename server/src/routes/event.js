@@ -1,6 +1,6 @@
 import express from 'express'
 import { getEvents } from './eventHelper.js'
-import { fomoEvents, fomoSocieties } from '../database.js';
+import { fomoEvents, fomoSocieties, fomoUsers } from '../database.js';
 import { verifyJWT } from '../middleware/verifyJWT.js';
 import { ObjectId } from 'mongodb';
 const router = express.Router();
@@ -40,7 +40,6 @@ Body should contain the following structure:
     end: Integer,
     description : String,
     tags: String[],
-    societyName: String
 }
 NOTE: date is in Unix epoch time
 
@@ -54,12 +53,14 @@ router.post('/add', async (req, res, next) => {
             return res.status(400).send({ error : 'Invalid society id' });
         }
         // Check if user is a user of the society (can edit/add/remove events)
+        // Bypassed if user has dev permissions
+        let authUser = await fomoUsers.findOne({ _id: ObjectId(req.userId) });
         foundSociety = foundSociety[0]
-        if (!foundSociety.users.includes(req.userId)) {
+        if (!foundSociety.users.includes(req.userId) && authUser.dev !== true) {
             return res.status(403).send({ error : 'Auth user is not a member of the society' });
         }
         let newEvent = req.body
-        newEvent.societyName = foundSociety[0].societyName
+        newEvent.societyName = foundSociety.societyName
         await fomoEvents.insertOne(req.body)
         res.status(200).send({ message : 'Success'})
     } catch(err) {
