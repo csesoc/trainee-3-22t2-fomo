@@ -1,4 +1,5 @@
 import './App.css';
+import FrontGeneral from './components/FrontGeneral'; 
 import Login from './components/LoginRegister/Login';
 import Register from './components/LoginRegister/Register';
 import ResetReq from './components/ResetPassword/ResetReq';

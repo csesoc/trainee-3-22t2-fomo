@@ -71,11 +71,7 @@ router.get('/refresh', async (req, res, next) => {
         process.env.REFRESH_TOKEN_SECRET,
         (err, decoded) => {
             if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
-            const accessToken = jwt.sign(
-                { username: decoded.username },
-                process.env.SUPER_SECRET_KEY,
-                { expiresIn: '30s' }
-            );
+            const accessToken = generateAccessToken(decoded.username, foundUser._id.toString());
             res.json({ accessToken });
         }
     )

@@ -146,53 +146,53 @@ const EventAdd = () => {
         {/* There's gotta be a better way to do this bit */}
         <FormControlLabel 
           sx={{ m: 1 }}
-          label="workshops"
-          control={<Checkbox name="workshops" onClick={handleTagsChange}/>}
+          label="Workshop"
+          control={<Checkbox name="Workshop" onClick={handleTagsChange}/>}
         />
         <FormControlLabel 
           sx={{ m: 1 }}
-          label="networking"
-          control={<Checkbox name="networking" onClick={handleTagsChange}/>}
+          label="Networking"
+          control={<Checkbox name="Networking" onClick={handleTagsChange}/>}
         />
         <FormControlLabel 
           sx={{ m: 1 }}
-          label="social"
-          control={<Checkbox name="social" onClick={handleTagsChange}/>}
+          label="Social"
+          control={<Checkbox name="Social" onClick={handleTagsChange}/>}
         />
         <FormControlLabel 
           sx={{ m: 1 }}
-          label="free food"
-          control={<Checkbox name="free food" onClick={handleTagsChange}/>}
+          label="Free Food"
+          control={<Checkbox name="Free Food" onClick={handleTagsChange}/>}
         />
         <FormControlLabel 
           sx={{ m: 1 }}
-          label="alchohol"
-          control={<Checkbox name="alchohol" onClick={handleTagsChange}/>}
+          label="Alcohol"
+          control={<Checkbox name="Alcohol" onClick={handleTagsChange}/>}
         />
         <FormControlLabel 
           sx={{ m: 1 }}
-          label="excursion"
-          control={<Checkbox name="excursion" onClick={handleTagsChange}/>}
+          label="Excursion"
+          control={<Checkbox name="Excursion" onClick={handleTagsChange}/>}
         />
         <FormControlLabel 
           sx={{ m: 1 }}
-          label="online"
-          control={<Checkbox name="online" onClick={handleTagsChange}/>}
+          label="Online"
+          control={<Checkbox name="Online" onClick={handleTagsChange}/>}
         />
         <FormControlLabel 
           sx={{ m: 1 }}
-          label="in-person"
-          control={<Checkbox name="in-person" onClick={handleTagsChange}/>}
+          label="In-person"
+          control={<Checkbox name="In-person" onClick={handleTagsChange}/>}
         />
         <FormControlLabel 
           sx={{ m: 1 }}
-          label="sports"
-          control={<Checkbox name="sports" onClick={handleTagsChange}/>}
+          label="Sports"
+          control={<Checkbox name="Sports" onClick={handleTagsChange}/>}
         />
         <FormControlLabel 
           sx={{ m: 1 }}
-          label="education"
-          control={<Checkbox name="education" onClick={handleTagsChange}/>}
+          label="Education"
+          control={<Checkbox name="Education" onClick={handleTagsChange}/>}
         />
       </Box>
       <DialogActions>

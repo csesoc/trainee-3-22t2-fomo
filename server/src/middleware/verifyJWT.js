@@ -7,7 +7,6 @@ Checks for a bearer token and returns 200 if the token is valid
 const verifyJWT = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     if (!authHeader) return res.sendStatus(401); // Unauthorised error (no given token)
-    console.log(authHeader); // Bearer token
     const token = authHeader.split(' ')[1];
     jwt.verify(
         token,
@@ -15,6 +14,7 @@ const verifyJWT = (req, res, next) => {
         (err, decoded) => {
             if (err) return res.sendStatus(403); // Invalid token
             req.username = decoded.username;
+            req.userId = decoded.userId;
             next();
         }
     )
