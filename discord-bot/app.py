@@ -53,8 +53,20 @@ async def on_scheduled_event_create(event):
 
 # Allows the user to set what society their guild is a part of
 @bot.command(name='setSociety')
-async def setSociety(ctx, username, password):
-    # TODO
+async def setSociety(ctx, username, password, societyName):
+    # Check if valid user
+    endpoint = os.getenv('FOMO_URL') + "/login"
+    data = {
+        "username": username,
+        "password": password
+    }
+
+    accessToken = requests.post(endpoint, json=data).json()
+    if "accessToken" not in accessToken:
+        print("login failed")
+        return
+    endpoint = os.getenv('FOMO_URL') + '/society/'
+
     print("TODO")
 
 

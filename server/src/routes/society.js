@@ -1,5 +1,6 @@
 import express, { application } from 'express'
-import { fomoSocieties } from '../database.js';
+import { ObjectId } from 'mongodb';
+import { fomoSocieties, fomoUsers } from '../database.js';
 import { verifyJWT } from '../middleware/verifyJWT.js';
 const router = express.Router();
 
@@ -51,6 +52,20 @@ router.post('/del', async (req, res) => {
     try {
     await fomoSocieties.deleteOne({ societyId: req.body.societyId })
     res.status(200).send({ message : 'Success'})
+    } catch (err) {
+        next(err);
+    }
+})
+
+/*
+Adds a guild (discord server) to the user's society
+{
+    societyName: String,
+    guildId: String
+}
+*/
+router.post('/add/guild', async (req, res) => {
+    try {
     } catch (err) {
         next(err);
     }
