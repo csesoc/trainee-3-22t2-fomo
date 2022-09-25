@@ -4,6 +4,7 @@ import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import styles from './Register.module.css'
+import { BsFillEyeFill } from "react-icons/bs";
 
 const Register = () => {
   const { setAuth } = useAuth();
@@ -21,6 +22,24 @@ const Register = () => {
     const name = e.target.name;
     const value = e.target.value;
     setInputs(values => ({...values, [name]: value}))
+  }
+
+  const toggleVisibility = () => {
+    const password = document.getElementById("password");
+    if (password.type === "password") {
+      password.type = "text";
+    } else {
+      password.type = "password";
+    }
+  }
+
+  const toggleVisibility2 = () => {
+    const password = document.getElementById("confirmpassword");
+    if (password.type === "password") {
+      password.type = "text";
+    } else {
+      password.type = "password";
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -76,14 +95,20 @@ const Register = () => {
         {/*PASSWORD INPUT*/}
         <div className={styles.miniInput}>
           <h3 className={styles.inputText}>Password</h3>
-          <input name="password" className={styles.inputBar} type='text' 
-          value={inputs.password} onChange={handleChange} />
+          <div className={styles.passwordBarWrapper}>
+            <input name="password" className={styles.inputBar} type='password' 
+            value={inputs.password} id='password' onChange={handleChange} />
+            <BsFillEyeFill className={styles.eyeIcon} onClick={toggleVisibility}/>
+          </div>
         </div>
         {/*CONFIRM PASSWORD INPUT*/}
         <div className={styles.miniInput}>
           <h3 className={styles.inputText}>Confirm Password</h3>
-          <input name="confirmpassword" className={styles.inputBar} type='text' 
-          value={inputs.confirmpassword} onChange={handleChange} />
+          <div className={styles.passwordBarWrapper}>
+            <input name="confirmpassword" className={styles.inputBar} type='password' 
+            value={inputs.confirmpassword} id='confirmpassword' onChange={handleChange} />
+            <BsFillEyeFill className={styles.eyeIcon} onClick={toggleVisibility2}/>
+          </div>
         </div>
       {/*BUTTON*/}
       <Button type="submit" variant="contained" fullWidth  sx={{ mt: '5%', backgroundColor: '#40E317'}}>

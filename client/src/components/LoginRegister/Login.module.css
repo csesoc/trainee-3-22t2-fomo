@@ -45,6 +45,11 @@
     font-size: 1.7rem;
 }
 
+.passwordBarWrapper {
+    position: relative;
+    width: 100%;
+}
+
 .inputBar {
     width: 100%;
     height: 24px;
@@ -52,6 +57,12 @@
     border-style: none;
 
     background-color: #5E695F;
+}
+
+.eyeIcon {
+    position: absolute;
+    top: 11px;
+    right: 0;
 }
 
 .registerText {
