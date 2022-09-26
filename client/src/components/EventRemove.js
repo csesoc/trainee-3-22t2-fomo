@@ -18,6 +18,13 @@ const EventAdd = () => {
   const handleOpen = () => {setOpen(true)};
   const handleClose = () => {setOpen(false)};
  
+  const deleteEvent = async (e) => {
+    const response = await axiosPrivate.post('/event/del', {
+      eventId: null,
+    });
+    console.log('success');
+    handleClose();
+  }
 
   return (
     <div> 
@@ -26,11 +33,11 @@ const EventAdd = () => {
       <Dialog open={open} onClose={handleClose}>
        
         <DialogContent>
-          <Box sx={{ display: 'inline-block', flexWrap: 'wrap', padding: '20px' }}>  
+          <Box sx={{ display: 'inline-block', flexWrap: 'wrap', padding: '30px' }}>  
             <h2>Are you sure?</h2>
             <DialogActions>
-              <Button style={{'color':'green', fontSize:40}}onClick={handleClose}>✗</Button>
-              <Button style={{'color':'green', fontSize:40}}onClick={handleClose}>✓</Button> 
+              <Button style={{'color':'green', fontSize:38}}onClick={handleClose}>✗</Button>
+              <Button style={{'color':'green', fontSize:38}}onClick={deleteEvent}>✓</Button> 
             </DialogActions> 
           </Box>
         </DialogContent> 
