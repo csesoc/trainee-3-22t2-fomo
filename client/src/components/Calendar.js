@@ -8,6 +8,7 @@ import axios from "../config/axios";
 import { Dialog, Box } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { getDate, format } from "date-fns";
+import EventRemove from './EventRemove';
 
 // For some reason, you can't style the color of text with hex. So we will need to convert it to rbg
 function hexToRgb(hex) {
@@ -100,6 +101,8 @@ const Calendar = () => {
         <h6 style={{ marginTop: '0px', marginBottom:'2px'}}><b>{displayInfo.start} -- {displayInfo.end}</b></h6>
         <hr></hr>
         <p style={{ whiteSpace: 'pre-line'}}>{displayInfo.description}</p>
+        <br />
+        <EventRemove />
       </Box>
     </Dialog>
     </div>
