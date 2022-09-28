@@ -12,7 +12,6 @@ const Profile = () => {
   const axiosPrivate = useAxiosPrivate();
 
   const {user, showProfile, setShowProfile} = useContext(AdminContext);
-  console.log(user, showProfile)
   const username = user?.username;
 
   const logout = async () => {

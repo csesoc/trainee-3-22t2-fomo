@@ -1,5 +1,4 @@
 import './App.css';
-import FrontGeneral from './components/FrontGeneral'; 
 import Login from './components/LoginRegister/Login';
 import Register from './components/LoginRegister/Register';
 import FrontGeneral from './components/NavBar/FrontGeneral'

@@ -119,11 +119,15 @@ const Calendar = () => {
 
   // Get all societies from db and sets fullSocList accordingly
   useEffect(() => {
-    fetch("http://localhost:5000/society/getAll")
-    .then((response) => response.json())
-    .then((data) => {
-      setFullSocList(data)
-    });
+    const getSocs = async () => {
+      try {
+        const response = await axios.get('/society/getAll');
+        setFullSocList(response.data)
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    getSocs();
   }, []);
 
   // Add a society to the following box
