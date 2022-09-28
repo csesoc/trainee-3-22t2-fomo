@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button, Alert } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import styles from './ResetRes.module.css'
+import { BsFillEyeFill } from "react-icons/bs";
 
 const ResetRes = () => {
   const axiosPrivate = useAxiosPrivate();
@@ -10,10 +11,26 @@ const ResetRes = () => {
   const params = useParams();
 
   const [success, setSuccess] = useState(null);
+  const [err, setErr] = useState("");
   const [inputs, setInputs] = useState({
     password: '',
     confirmpassword: '',
   });
+
+  // change err mssg accordingly
+  useEffect(() => {
+    const alert = document.querySelector("#resetAlert");
+    alert.innerHTML = err;
+  }, [err])
+
+  const toggleVisibility = (e) => {
+    const password = document.getElementById(e.currentTarget.dataset.name);
+    if (password.type === "password") {
+      password.type = "text";
+    } else {
+      password.type = "password";
+    }
+  }
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -26,6 +43,7 @@ const ResetRes = () => {
     e.preventDefault();
     if (inputs.password !== inputs.confirmpassword) {
       setSuccess(false);
+      setErr("The passwords entered below do not match. Please try again");
       return;
     }
 
@@ -41,8 +59,7 @@ const ResetRes = () => {
 			setSuccess(true);
     } catch (err) {
       setSuccess(false);
-      const msg = "The link has expired. Please visit&nbsp;" + '<a href="'+"http://localhost:3000/resetpasswordreq"+'">'+"here"+'</a>' + "&nbsp;to get a new one."
-      document.getElementById("err").innerHTML = msg;
+      setErr("The link has expired. Please visit&nbsp;" + '<a href="'+"http://localhost:3000/resetpasswordreq"+'">'+"here"+'</a>' + "&nbsp;to get a new one.")
     }
   }
     
@@ -58,20 +75,25 @@ const ResetRes = () => {
       {/*INPUT FORM - show based on success boolean*/}
 			{ !success && <div className={styles.input}> 
 				{/* FAIL PASSWORD NOT MATCH MESSAGE */}
-				<Alert id="err" severity='error' fullwidth sx={{ display: success === false ? 'flex': 'none', mt: '5%'}}>
-					The passwords entered below do not match. Please try again
+				<Alert id="resetAlert" severity='error' sx={{ display: success === false ? 'flex': 'none', mt: '5%'}}>
 				</Alert>
         {/*PASSWORD INPUT*/}
         <div className={styles.miniInput}>
           <h3 className={styles.inputText}>Password</h3>
-          <input name="password" className={styles.inputBar} type='text' 
-          value={inputs.password} onChange={handleChange} />
+          <div className={styles.passwordBarWrapper}>
+            <input name="password" className={styles.inputBar} type='password' 
+            value={inputs.password} id='password' onChange={handleChange} required/>
+            <BsFillEyeFill className={styles.eyeIcon} data-name='password' onClick={toggleVisibility}/>
+          </div>
         </div>
         {/*CONFIRM PASSWORD INPUT*/}
         <div className={styles.miniInput}>
           <h3 className={styles.inputText}>Confirm Password</h3>
-          <input name="confirmpassword" className={styles.inputBar} type='text' 
-          value={inputs.confirmpassword} onChange={handleChange} />
+          <div className={styles.passwordBarWrapper}>
+            <input name="confirmpassword" className={styles.inputBar} type='password' 
+            value={inputs.confirmpassword} id='confirmpassword' onChange={handleChange} required/>
+            <BsFillEyeFill className={styles.eyeIcon} data-name='confirmpassword' onClick={toggleVisibility}/>
+          </div>
         </div>
 				{/*BUTTON*/}
 				<Button type="submit" variant="contained" fullWidth  sx={{ mt: '5%', backgroundColor: '#40E317'}}>
