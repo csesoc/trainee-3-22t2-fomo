@@ -25,7 +25,7 @@ const Profile = () => {
   }
 
   return (
-    <Dialog open={showProfile} onClose={() => {setShowProfile(false)}} PaperProps={{style: { borderRadius: '20px' }}}>
+    <Dialog open={showProfile ? showProfile : false} onClose={() => {setShowProfile(false)}} PaperProps={{style: { borderRadius: '20px' }}}>
       <div className={styles.container}>
         {/* TEXT */}
         <h1 className={styles.curview}>Currently Viewing</h1>

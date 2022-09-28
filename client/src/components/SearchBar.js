@@ -26,7 +26,7 @@ const SearchBar = ({ addSociety, fullSocList }) => {
               return society
             }
           }).map((society) => (
-            <SearchMatch key={society.societyId} society={society} addSociety={addSociety} />
+            <SearchMatch key={society._id} society={society} addSociety={addSociety} />
           ))
         }
       </div>

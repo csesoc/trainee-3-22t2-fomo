@@ -7,7 +7,7 @@ const SocFollowing = ({ societies, addSociety, delSociety }) => {
     <div className={styles.followBox}>
       <h1>Following</h1>
       {societies.map((society) => (
-        <Soc key={society.societyId} society={society} addSociety={addSociety} delSociety={delSociety} />
+        <Soc key={society._id} society={society} addSociety={addSociety} delSociety={delSociety} />
       ))}
     </div>
   )
