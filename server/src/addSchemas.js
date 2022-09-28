@@ -51,6 +51,10 @@ fomodb.command({
                 users: {
                     bsonType: "array",
                     description: "Array of user ids that have basic perms (can add/remove events)"
+                },
+                guildId: {
+                    bsonType: "string",
+                    description: "id of the society's discord server"
                 }
             }
         }
