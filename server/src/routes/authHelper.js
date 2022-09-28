@@ -78,7 +78,8 @@ export async function login(username, password) {
     // Check if user exists
     let user = await fomoUsers.findOne({ username: username });
     if (!user) {
-        return {error: 'user not found!'};
+        user = await fomoUsers.findOne({ email: username });
+        if (!user) { return {error: 'user not found!'}; }
     }
 
     // Get salt

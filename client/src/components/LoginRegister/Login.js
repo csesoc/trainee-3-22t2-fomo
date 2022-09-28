@@ -62,7 +62,7 @@ const Login = () => {
         </Alert>
         {/*USERNAME INPUT*/}
         <div className={styles.miniInput}>
-          <h3 className={styles.inputText}>Username</h3>
+          <h3 className={styles.inputText}>Username / Email</h3>
           <input name='username' className={styles.inputBar} type='text'
           value={inputs.username} onChange={handleChange} required/>
         </div>
