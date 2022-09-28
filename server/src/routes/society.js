@@ -8,8 +8,8 @@ Returns a list of all societies in the db
 */
 router.get('/getAll', async (req, res, next) => {
     try {
-    const societies = await fomoSocieties.find({}).toArray()
-    res.status(200).send(societies)
+        const societies = await fomoSocieties.find({}).toArray()
+        res.status(200).send(societies)
     } catch(err) {
         next(err);
     }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button } from '@mui/material'
+import { Button, Alert } from '@mui/material'
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
@@ -11,6 +11,7 @@ const Register = () => {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
 
+  const [success, setSuccess] = useState(true);
   const [inputs, setInputs] = useState({
     username: '',
     email: '',
@@ -36,10 +37,6 @@ const Register = () => {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-    if (inputs.password !== inputs.confirmpassword) {
-      alert("Passwords not matching");
-      return
-    }
 
     try {
       const res = await axiosPrivate.post('/register', {
@@ -56,8 +53,7 @@ const Register = () => {
       });
       navigate('/admin', { replace: true });
     } catch (err) {
-      navigate('/register');
-      console.log(err)
+      setSuccess(false);
     }
   }
     
@@ -71,24 +67,28 @@ const Register = () => {
           <p className={styles.regisText}>Fill in your details and start your own <a>personalised calendar</a> now!</p>
       </div>
       {/*INPUT FORM*/}
+        {/* INCORRECT PASSWORD/USER */}
+        <Alert severity='error' sx={{ display: success ? 'none': 'flex', mt: '5%' }}>
+          Check if your passwords below match
+        </Alert>
         {/*USERNAME INPUT*/}
         <div className={styles.miniInput}>
           <h3 className={styles.inputText}>Username</h3>
           <input name="username" className={styles.inputBar} type='text' 
-          value={inputs.username} onChange={handleChange} />
+          value={inputs.username} onChange={handleChange} required/>
         </div>
         {/*EMAIL INPUT*/}
         <div className={styles.miniInput}>
           <h3 className={styles.inputText}>Email</h3>
           <input name="email" className={styles.inputBar} type='text' 
-          value={inputs.email} onChange={handleChange} />
+          value={inputs.email} onChange={handleChange} required/>
         </div>
         {/*PASSWORD INPUT*/}
         <div className={styles.miniInput}>
           <h3 className={styles.inputText}>Password</h3>
           <div className={styles.passwordBarWrapper}>
             <input name="password" className={styles.inputBar} type='password' 
-            value={inputs.password} id='password' onChange={handleChange} />
+            value={inputs.password} id='password' onChange={handleChange} required/>
             <BsFillEyeFill className={styles.eyeIcon} data-name="password" onClick={toggleVisibility}/>
           </div>
         </div>
@@ -97,7 +97,7 @@ const Register = () => {
           <h3 className={styles.inputText}>Confirm Password</h3>
           <div className={styles.passwordBarWrapper}>
             <input name="confirmpassword" className={styles.inputBar} type='password' 
-            value={inputs.confirmpassword} id='confirmpassword' onChange={handleChange} />
+            value={inputs.confirmpassword} id='confirmpassword' onChange={handleChange} required/>
             <BsFillEyeFill className={styles.eyeIcon} data-name="confirmpassword" onClick={toggleVisibility}/>
           </div>
         </div>

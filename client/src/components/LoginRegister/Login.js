@@ -57,21 +57,21 @@ const Login = () => {
       {/*INPUT BARS*/}
       <div className={styles.input}>
         {/* INCORRECT PASSWORD/USER */}
-        <Alert severity='error' fullwidth  sx={{ display: success ? 'none': 'flex', mt: '5%' }}>
+        <Alert severity='error' sx={{ display: success ? 'none': 'flex', mt: '5%' }}>
           The username or password is incorrect. <a className={styles.alertText} href='http://localhost:3000/resetpasswordreq'>Forgot Password</a>
         </Alert>
         {/*USERNAME INPUT*/}
         <div className={styles.miniInput}>
           <h3 className={styles.inputText}>Username</h3>
           <input name='username' className={styles.inputBar} type='text'
-          value={inputs.username} onChange={handleChange} />
+          value={inputs.username} onChange={handleChange} required/>
         </div>
         {/*PASSWORD INPUT*/}
         <div className={styles.miniInput}>
           <h3 className={styles.inputText}>Password</h3>
           <div className={styles.passwordBarWrapper}>
             <input name='password' className={styles.inputBar} type='password'
-            value={inputs.password} id='password' onChange={handleChange} />
+            value={inputs.password} id='password' onChange={handleChange} required/>
             <BsFillEyeFill className={styles.eyeIcon} data-name='password' onClick={toggleVisibility}/>
           </div>
         </div>
