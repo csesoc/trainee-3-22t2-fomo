@@ -1,0 +1,54 @@
+div::-webkit-scrollbar{
+    width: 0.7em; 
+    background-color: rgb(34, 33, 33);
+  }
+  
+div::-webkit-scrollbar-track{
+    background-color: rgb(48, 134, 45);
+    border-radius: 100vw;  
+}
+
+div::-webkit-scrollbar-thumb{
+    background-color: rgb(115, 221, 113);
+    border-radius: 100vw; 
+}
+
+div::-webkit-scrollbar-thumb:hover{
+    background: rgb(166, 245, 166);
+    border-radius: 100vw;
+} 
+
+
+.info-block { 
+    background-color: rgb(34, 33, 33);
+    color: white;
+}
+ 
+.info-block p {
+    text-align: left
+}
+
+.creators {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.creators li {
+    display: inline-block;
+    min-width: 5em;
+    margin: 0 0.5em;
+}
+
+.info-info {
+    text-align: center; 
+}
+
+.info-info h1, h3{
+    color: rgb(116, 255, 116); 
+}
+
+.info-info h4 {
+    font-weight: 10;
+}
+ 

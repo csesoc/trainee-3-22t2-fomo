@@ -5,6 +5,7 @@
     padding: 3% 3.5%;
     border-radius: 20px;
     max-width: 500px;
+    max-height: 350px;
     margin: 5vw auto;
 
     display: flex;
@@ -20,9 +21,8 @@
 }
 
 .input {
-    margin-top: 5%;
     width: 100%;
-
+    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -41,27 +41,16 @@
     color: #1CB82C;
     margin: 0;
 
-    font-size: 1.7rem;
-}
-
-.passwordBarWrapper {
-    position: relative;
-    width: 100%;
+    font-size: 1.2rem;
 }
 
 .inputBar {
     width: 100%;
-    height: 24px;
+    height: 18px;
     margin-top: 1.3%;
     border-style: none;
 
     background-color: #5E695F;
-}
-
-.eyeIcon {
-    position: absolute;
-    top: 11px;
-    right: 0;
 }
 
 .registerText {
@@ -78,6 +67,6 @@
     color: white;
 }
 
-a {
-    color: #00b012;
+.regisText a {
+    color: #2AFF25;
 }
