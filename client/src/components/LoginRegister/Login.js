@@ -58,7 +58,7 @@ const Login = () => {
       <div className={styles.input}>
         {/* INCORRECT PASSWORD/USER */}
         <Alert severity='error' sx={{ display: success ? 'none': 'flex', mt: '5%' }}>
-          The username or password is incorrect. <a className={styles.alertText} href='http://localhost:3000/resetpasswordreq'>Forgot Password</a>
+          The username or password is incorrect. <a href='http://localhost:3000/resetpasswordreq'>Forgot Password</a>
         </Alert>
         {/*USERNAME INPUT*/}
         <div className={styles.miniInput}>

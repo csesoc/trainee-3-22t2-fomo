@@ -24,6 +24,12 @@ export async function register(username, password, email) {
         return { error: 'username is taken!'}
     }
 
+    // Check if this email is already used
+    exists = await fomoUsers.findOne({ email: email });
+    if (exists) {
+        return { error: 'email is taken!'}
+    }
+
     // Get salt
     let salt = crypto.randomBytes(16).toString('hex');
 

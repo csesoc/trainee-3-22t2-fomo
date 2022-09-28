@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button, Alert } from '@mui/material'
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom'
@@ -12,12 +12,19 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [success, setSuccess] = useState(true);
+  const [err, setErr] = useState("");
   const [inputs, setInputs] = useState({
     username: '',
     email: '',
     password: '',
     confirmpassword: '',
   });
+
+  // change err mssg accordingly
+  useEffect(() => {
+    const alert = document.querySelector("#regisAlert");
+    alert.innerHTML = err;
+  }, [err])
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -38,6 +45,12 @@ const Register = () => {
 
     e.preventDefault();
 
+    if (inputs.password !== inputs.confirmpassword) {
+      setSuccess(false);
+      setErr("Check that the passwords below match");
+      return;
+    }
+
     try {
       const res = await axiosPrivate.post('/register', {
         username: inputs.username,
@@ -54,6 +67,11 @@ const Register = () => {
       navigate('/admin', { replace: true });
     } catch (err) {
       setSuccess(false);
+      if (err.response.data.error.includes('username')) {
+        setErr('This username has been taken');
+      } else if (err.response.data.error.includes('email')) {
+        setErr("This email is associated with an existing account. &nbsp <a href='http://localhost:3000/resetpasswordreq'>Forgot Password</a>")
+      }
     }
   }
     
@@ -68,8 +86,7 @@ const Register = () => {
       </div>
       {/*INPUT FORM*/}
         {/* INCORRECT PASSWORD/USER */}
-        <Alert severity='error' sx={{ display: success ? 'none': 'flex', mt: '5%' }}>
-          Check if your passwords below match
+        <Alert id="regisAlert" severity='error' sx={{ display: success ? 'none': 'flex', mt: '5%', alignItems: 'center' }}>
         </Alert>
         {/*USERNAME INPUT*/}
         <div className={styles.miniInput}>

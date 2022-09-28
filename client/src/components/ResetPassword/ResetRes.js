@@ -79,7 +79,7 @@ const ResetRes = () => {
       	</Button>
 			</div> }
       {/* SUCCESS MESSAGE */}
-			<Alert severity='success' fullwidth  sx={{ display: success ? 'flex': 'none', mt: '5%' }}>
+			<Alert severity='success' sx={{ display: success ? 'flex': 'none', mt: '5%' }}>
 				Your password has been updated successfully. Click <a href='http://localhost:3000/login'>here</a> to Login again.
 			</Alert>
     </form>
