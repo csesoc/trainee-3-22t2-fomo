@@ -24,17 +24,8 @@ const Register = () => {
     setInputs(values => ({...values, [name]: value}))
   }
 
-  const toggleVisibility = () => {
-    const password = document.getElementById("password");
-    if (password.type === "password") {
-      password.type = "text";
-    } else {
-      password.type = "password";
-    }
-  }
-
-  const toggleVisibility2 = () => {
-    const password = document.getElementById("confirmpassword");
+  const toggleVisibility = (e) => {
+    const password = document.getElementById(e.currentTarget.dataset.name);
     if (password.type === "password") {
       password.type = "text";
     } else {
@@ -98,7 +89,7 @@ const Register = () => {
           <div className={styles.passwordBarWrapper}>
             <input name="password" className={styles.inputBar} type='password' 
             value={inputs.password} id='password' onChange={handleChange} />
-            <BsFillEyeFill className={styles.eyeIcon} onClick={toggleVisibility}/>
+            <BsFillEyeFill className={styles.eyeIcon} data-name="password" onClick={toggleVisibility}/>
           </div>
         </div>
         {/*CONFIRM PASSWORD INPUT*/}
@@ -107,7 +98,7 @@ const Register = () => {
           <div className={styles.passwordBarWrapper}>
             <input name="confirmpassword" className={styles.inputBar} type='password' 
             value={inputs.confirmpassword} id='confirmpassword' onChange={handleChange} />
-            <BsFillEyeFill className={styles.eyeIcon} onClick={toggleVisibility2}/>
+            <BsFillEyeFill className={styles.eyeIcon} data-name="confirmpassword" onClick={toggleVisibility}/>
           </div>
         </div>
       {/*BUTTON*/}

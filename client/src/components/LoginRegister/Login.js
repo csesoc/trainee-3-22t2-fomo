@@ -22,8 +22,8 @@ const Login = () => {
     setInputs(values => ({...values, [name]: value}))
   }
 
-  const toggleVisibility = () => {
-    const password = document.getElementById("password");
+  const toggleVisibility = (e) => {
+    const password = document.getElementById(e.currentTarget.dataset.name);
     if (password.type === "password") {
       password.type = "text";
     } else {
@@ -68,7 +68,7 @@ const Login = () => {
           <div className={styles.passwordBarWrapper}>
             <input name='password' className={styles.inputBar} type='password'
             value={inputs.password} id='password' onChange={handleChange} />
-            <BsFillEyeFill className={styles.eyeIcon} onClick={toggleVisibility}/>
+            <BsFillEyeFill className={styles.eyeIcon} data-name='password' onClick={toggleVisibility}/>
           </div>
         </div>
       </div>
