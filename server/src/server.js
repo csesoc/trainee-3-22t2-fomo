@@ -29,8 +29,8 @@ app.use('/user', userRoutes);
 
 
 // Start the server at port 5000
-app.listen(5000, async () => {
+app.listen(5001, async () => {
     await client.connect()
     console.log('Server started!')
-    console.log('listening on port 5000')
+    console.log('listening on port 5001')
 })
