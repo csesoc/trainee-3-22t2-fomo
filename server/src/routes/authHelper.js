@@ -57,9 +57,12 @@ export async function register(username, password, email) {
         user.email = email;
     }
 
-    await fomoUsers.insertOne(user);
+    let userId;
+    await fomoUsers.insertOne(user).then(result => {
+        userId = result._id.toString();
+    });
     // Create token
-    let accessToken = jwt.sign({ username: username }, process.env.SUPER_SECRET_KEY, { expiresIn: '1h'});
+    let accessToken = generateAccessToken(username, userId);
 
     return {accessToken: accessToken, refreshToken: refreshToken};
 }
@@ -99,7 +102,7 @@ export async function login(username, password) {
     }
 
     // Create tokens
-    const accessToken = jwt.sign({ username: user.username }, process.env.SUPER_SECRET_KEY, { expiresIn: '30s'});
+    const accessToken = generateAccessToken(user.username, user._id.toString());
     const refreshToken = jwt.sign({ username: user.username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
     
     await fomoUsers.updateOne({ username: user.username },
@@ -189,3 +192,13 @@ export function validateToken(token) {
     }
     return { decoded };
 };
+
+
+
+// Create access token
+// Username is a string
+// userId is a string
+// we really should use typescript LOL
+export function generateAccessToken(username, userId) {
+    return jwt.sign({ username: username, userId: userId}, process.env.SUPER_SECRET_KEY, { expiresIn: '30s' });
+}
