@@ -10,6 +10,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import axios from "../config/axios";
 
 import { Dialog, Box, Grid,  } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useState, useEffect } from 'react';
 import { getDate, format } from "date-fns";
 
@@ -199,6 +201,14 @@ const Calendar = () => {
     setOpen(true)
 
   }
+
+  const theme = useTheme();
+  const showBig = useMediaQuery('(min-width:1024px)');
+  const showMedium = useMediaQuery('(min-width:426px) and (max-width:1023px)');
+  const showSmall = useMediaQuery('(max-width:425px)');
+  const showMedHeight = useMediaQuery('(min-height:380px) and (max-height:500px)');
+  const showSmallHeight = useMediaQuery('(max-height:380px)');
+
   return (
     <div>
     <Dialog open={open} onClose={handleClose}>
@@ -210,7 +220,8 @@ const Calendar = () => {
         <p style={{ whiteSpace: 'pre-line'}}>{displayInfo.description}</p>
       </Box>
     </Dialog>
-    <Grid container spacing={2} sx={{ padding: '15px' }}>
+    {/* ABOVE 1024PX */}
+    {showBig && !showMedHeight && !showSmallHeight && <Grid container spacing={2} sx={{ padding: '15px' }}>
       <Grid item xs={8}>
         <FullCalendar
           initialView="dayGridMonth"
@@ -228,7 +239,47 @@ const Calendar = () => {
       <Grid item xs={2}>
         <TagFilter tags={tags} tagNames={tagNames} updateTags={updateTags}/>
       </Grid>
-    </Grid>
+    </Grid>}
+    {/* ABOVE 425PX OR HEIGHT LESS THAN 500PX */}
+    {(showMedium || showMedHeight) && !showSmallHeight && <Grid container spacing={2} sx={{ padding: '15px' }}>
+      <Grid item xs={12}>
+        <FullCalendar
+          initialView="dayGridMonth"
+          plugins={[dayGridPlugin]}
+          events={events}
+          eventClick={handleEventClick}
+        />
+      </Grid>
+      <Grid item xs={5}>
+        <div className={styles.socWrapper}>
+          <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
+          <SocFollowing societies={fullSocList} addSociety={addSociety} delSociety={delSociety}/>
+        </div>
+      </Grid>
+      <Grid item xs={7}>
+        <TagFilter tags={tags} tagNames={tagNames} updateTags={updateTags}/>
+      </Grid>
+    </Grid>}
+    {/* ANYTHING SMALLER */}
+    {(showSmall || showSmallHeight) && !showMedHeight && <Grid container spacing={2} sx={{ padding: '15px' }}>
+      <Grid item xs={12}>
+        <FullCalendar
+          initialView="dayGridMonth"
+          plugins={[dayGridPlugin]}
+          events={events}
+          eventClick={handleEventClick}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <div className={styles.socWrapper}>
+          <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
+          <SocFollowing societies={fullSocList} addSociety={addSociety} delSociety={delSociety}/>
+        </div>
+      </Grid>
+      <Grid item xs={12}>
+        <TagFilter tags={tags} tagNames={tagNames} updateTags={updateTags}/>
+      </Grid>
+    </Grid>}
     </div>
   )
 }
