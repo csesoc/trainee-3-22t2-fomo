@@ -54,6 +54,12 @@
 
   position: relative;
   z-index: 100;
+
+  transition: all .2s ease-in-out;
+}
+
+.searchMatch:hover {
+  transform: scale(1.1);
 }
 
 input:focus {
