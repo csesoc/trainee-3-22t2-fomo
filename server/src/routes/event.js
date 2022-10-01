@@ -21,7 +21,7 @@ router.get('/get', async (req, res, next) => {
     if (items.length > 0) {
         res.status(200).send(items)
     } else {
-        res.status(404).send({ error: 'Cannot find events with given parameters'})
+        res.status(400).send({ error: 'Cannot find events with given parameters'})
     }
     } catch(err) {
         next(err);
