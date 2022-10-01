@@ -7,7 +7,7 @@ import TagFilter from './TagFilter';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import axios from "../config/axios";
-
+import env from "react-dotenv";
 import { Dialog, Box, Grid,  } from "@mui/material";
 import { useState, useEffect } from 'react';
 import { getDate, format } from "date-fns";
@@ -118,7 +118,7 @@ const Calendar = () => {
 
   // Get all societies from db and sets fullSocList accordingly
   useEffect(() => {
-    fetch("http://localhost:5000/society/getAll")
+    fetch(env.FOMO_URL + "/society/getAll")
     .then((response) => response.json())
     .then((data) => {
       setFullSocList(data)

@@ -1,6 +1,6 @@
 import express from 'express'
 const router = express.Router();
-import { register, login, resetPasswordReq, resetPasswordRes } from './authHelper.js'
+import { register, login, resetPasswordReq, resetPasswordRes, generateAccessToken } from './authHelper.js'
 import { fomoUsers } from '../database.js'
 import jwt from 'jsonwebtoken'
 

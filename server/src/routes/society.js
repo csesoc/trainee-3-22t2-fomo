@@ -160,3 +160,35 @@ router.post('/addGuild', async (req, res, next) => {
         next(err);
     }
 })
+
+/*
+Searches for all societies where the user is an admin
+*/
+router.get('/get/userIsAdmin', async (req, res, next) => {
+    try {
+        let societies = await fomoSocieties.find().toArray();
+        let foundSocieties = societies.filter((society) => {
+            return society.admins.includes(req.userId);
+        });
+        res.status(200).send({ societies: foundSocieties });
+        return;
+    } catch (err) {
+        next(err);
+    }
+})
+
+/*
+Searches for all societies where the user is a member
+*/
+router.get('/get/userIsMember', async (req, res, next) => {
+    try {
+        let societies = await fomoSocieties.find().toArray();
+        let foundSocieties = societies.filter((society) => {
+            return society.users.includes(req.userId);
+        });
+        res.status(200).send({ societies: foundSocieties });
+        return;
+    } catch (err) {
+        next(err);
+    }
+})
