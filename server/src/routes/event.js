@@ -15,7 +15,6 @@ Example query:
 */
 router.get('/get', async (req, res, next) => {
     try {
-    res.header("Access-Control-Allow-Origin", 'http://localhost:3000'); // Give access to front end server
     let items = await getEvents(req)
     console.log(req.username);
     if (items.length > 0) {
