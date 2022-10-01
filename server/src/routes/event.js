@@ -58,8 +58,13 @@ router.post('/add', async (req, res, next) => {
         if (!foundSociety.users.includes(req.userId) && authUser.dev !== true) {
             return res.status(403).send({ error : 'Auth user is not a member of the society' });
         }
-        let newEvent = req.body
-        newEvent.societyName = foundSociety.societyName
+        let newEvent = req.body;
+        // Add society color if color is not given
+        if (newEvent.color === undefined) {
+            newEvent.color = foundSociety.color;
+        }
+        // Add societyName to event
+        newEvent.societyName = foundSociety.societyName;
         await fomoEvents.insertOne(req.body)
         res.status(200).send({ message : 'Success'})
     } catch(err) {

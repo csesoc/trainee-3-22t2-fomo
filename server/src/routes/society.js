@@ -22,7 +22,7 @@ router.use(verifyJWT);
 
 
 /*
-Adds a society to the database 
+Adds a society to the database
 Body should contain the following structure:
 {
     societyName : String,
