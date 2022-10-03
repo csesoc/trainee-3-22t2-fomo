@@ -1,15 +1,15 @@
-import React from 'react'
+import './Tag.scss';
 
 const Tag = ({ tag, updateTags }) => {
 
   const onClick = (e) => {
-    e.currentTarget.classList.toggle('tag-active')
+    e.currentTarget.classList.toggle('tagActive')
     updateTags(tag)
   }
 
   return (
     <div className='tag' onClick={onClick}>
-      <p className='tagText'>{tag}</p>
+      {tag}
     </div>
   )
 }

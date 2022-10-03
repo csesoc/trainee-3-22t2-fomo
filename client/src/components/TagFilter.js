@@ -1,6 +1,5 @@
 import React from 'react'
-import './Tag.css'
-import { useState } from 'react'
+import './Tag.scss'
 import Tag from './Tag'
 
 const TagFilter = (props) => {

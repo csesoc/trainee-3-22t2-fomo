@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { Button, Alert } from '@mui/material'
 import styles from './Login.module.css'
+import { BsFillEyeFill } from "react-icons/bs";
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -20,6 +21,15 @@ const Login = () => {
     const name = e.target.name;
     const value = e.target.value;
     setInputs(values => ({...values, [name]: value}))
+  }
+
+  const toggleVisibility = (e) => {
+    const password = document.getElementById(e.currentTarget.dataset.name);
+    if (password.type === "password") {
+      password.type = "text";
+    } else {
+      password.type = "password";
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -47,20 +57,23 @@ const Login = () => {
       {/*INPUT BARS*/}
       <div className={styles.input}>
         {/* INCORRECT PASSWORD/USER */}
-        <Alert severity='error' fullwidth  sx={{ display: success ? 'none': 'flex', mt: '5%' }}>
-          The username or password is incorrect. <a className={styles.alertText} href='http://localhost:3000/resetpasswordreq'>Forgot Password</a>
+        <Alert severity='error' sx={{ display: success ? 'none': 'flex', mt: '5%' }}>
+          The username or password is incorrect. <a href='http://localhost:3000/resetpasswordreq'>Forgot Password</a>
         </Alert>
         {/*USERNAME INPUT*/}
         <div className={styles.miniInput}>
-          <h3 className={styles.inputText}>Username</h3>
+          <h3 className={styles.inputText}>Username / Email</h3>
           <input name='username' className={styles.inputBar} type='text'
-          value={inputs.username} onChange={handleChange} />
+          value={inputs.username} onChange={handleChange} required/>
         </div>
         {/*PASSWORD INPUT*/}
         <div className={styles.miniInput}>
           <h3 className={styles.inputText}>Password</h3>
-          <input name='password' className={styles.inputBar} type='text'
-          value={inputs.password} onChange={handleChange} />
+          <div className={styles.passwordBarWrapper}>
+            <input name='password' className={styles.inputBar} type='password'
+            value={inputs.password} id='password' onChange={handleChange} required/>
+            <BsFillEyeFill className={styles.eyeIcon} data-name='password' onClick={toggleVisibility}/>
+          </div>
         </div>
       </div>
       {/*BUTTON*/}
