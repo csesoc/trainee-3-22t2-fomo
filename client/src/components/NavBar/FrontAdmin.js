@@ -1,4 +1,5 @@
 import mainlogo from '../../mainlogo.png' 
+import UserAdd from './UserAdd'
 import EventAdd from './EventAdd';
 import LoginIcon from '../LoginRegister/LoginIcon';
 import Profile from '../LoginRegister/Profile';
@@ -14,6 +15,7 @@ const FrontAdmin = () => {
       <div className='navBar'>
         <img className='logo' src={mainlogo} /> 
         <ul>
+          <li> <UserAdd /> </li>
           <li> <EventAdd /> </li>
           <li> <InfoButton /></li>
           <li> <OppositeContentTimeline /> </li>
