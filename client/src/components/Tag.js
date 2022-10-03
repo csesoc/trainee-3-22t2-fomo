@@ -3,7 +3,7 @@ import './Tag.scss';
 const Tag = ({ tag, updateTags }) => {
 
   const onClick = (e) => {
-    e.currentTarget.classList.toggle('tag-active')
+    e.currentTarget.classList.toggle('tagActive')
     updateTags(tag)
   }
 

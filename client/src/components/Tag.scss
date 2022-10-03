@@ -20,7 +20,8 @@ $tagGap: 2%;
 
 .tag {
   background-color: rgb(100,223,121);
-  transition: background-color 250ms linear;
+  transition: background-color 400ms linear;
+  transition: transform .2s ease-in-out;
 
   width: 100%;
   height: calc((100% - $tagGap * ($noOfTags - 1)) / ($noOfTags));
@@ -35,11 +36,12 @@ $tagGap: 2%;
 }
 
 .tag:hover {
-  background-color: #B9EEFF;
-  transition: background-color 400ms linear;
+  transform: scale(1.01);
 }
 
-.tag-active {
+.tagActive {
   background-color: #B9EEFF;
+  transition: background-color 400ms linear;
+  transition: transform .2s ease-in-out;
 }
 
