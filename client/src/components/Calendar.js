@@ -1,6 +1,7 @@
 import React from "react";
 import './calendar.css';
 import styles from './Soc.module.css';
+import searchStyles from './SearchBar.module.css';
 
 import SocFollowing from './SocFollowing';
 import SearchBar from './SearchBar';
@@ -148,12 +149,20 @@ const Calendar = () => {
   // all societies in the societies array are "chosen" (blue color) in the following box
   useEffect(() => {
     const socs = document.querySelectorAll(`.${styles.followSoc}`);
+    const searchMatches = document.querySelectorAll(`.${searchStyles.searchMatch}`);
     const socNames = societies.map((society) => society.societyName);
     for (const soc of socs) {
       if (socNames.includes(soc.textContent)) {
         soc.classList.add(`${styles.followSocActive}`);
       } else {
         soc.classList.remove(`${styles.followSocActive}`);
+      }
+    }
+    for (const match of searchMatches) {
+      if (socNames.includes(match.textContent)) {
+        match.classList.add(`${searchStyles.searchMatchActive}`);
+      } else {
+        match.classList.remove(`${searchStyles.searchMatchActive}`);
       }
     }
   }, [societies]);
@@ -232,7 +241,7 @@ const Calendar = () => {
       </Grid>
       <Grid item xs={2}>
         <div className={styles.socWrapper}>
-          <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
+          <SearchBar addSociety={addSociety} fullSocList={fullSocList} delSociety={delSociety}/>
           <SocFollowing societies={fullSocList} addSociety={addSociety} delSociety={delSociety}/>
         </div>
       </Grid>
@@ -252,7 +261,7 @@ const Calendar = () => {
       </Grid>
       <Grid item xs={5}>
         <div className={styles.socWrapper}>
-          <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
+          <SearchBar addSociety={addSociety} fullSocList={fullSocList} delSociety={delSociety}/>
           <SocFollowing societies={fullSocList} addSociety={addSociety} delSociety={delSociety}/>
         </div>
       </Grid>
@@ -272,7 +281,7 @@ const Calendar = () => {
       </Grid>
       <Grid item xs={12}>
         <div className={styles.socWrapper}>
-          <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
+          <SearchBar addSociety={addSociety} fullSocList={fullSocList} delSociety={delSociety}/>
           <SocFollowing societies={fullSocList} addSociety={addSociety} delSociety={delSociety}/>
         </div>
       </Grid>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import SearchMatch from './SearchMatch'
 import styles from './SearchBar.module.css'
 
-const SearchBar = ({ addSociety, fullSocList }) => {
+const SearchBar = ({ addSociety, fullSocList, delSociety }) => {
 
   const [input, setInput] = useState('')
 
@@ -32,7 +32,7 @@ const SearchBar = ({ addSociety, fullSocList }) => {
               return society
             }
           }).map((society) => (
-            <SearchMatch key={society._id} society={society} addSociety={addSociety} />
+            <SearchMatch key={society._id} society={society} addSociety={addSociety} delSociety={delSociety} />
           ))
         }
       </div>

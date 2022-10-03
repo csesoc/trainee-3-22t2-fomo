@@ -32,6 +32,8 @@
 
 .searchMatch {
   background-color: #64DF79;
+  transition: background-color 400ms linear;
+  transition: all .2s ease-in-out;
   color: white;
   text-align: left;
 
@@ -58,8 +60,10 @@
   transition: all .2s ease-in-out;
 }
 
-.searchMatch:hover {
-  transform: scale(1.1);
+.searchMatchActive {
+  background-color: #B9EEFF;
+  transition: background-color 400ms linear;
+  transition: all .2s ease-in-out;
 }
 
 input:focus {
