@@ -15,6 +15,8 @@ import {
   ListSubheader,
   TextField,
   Button,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
@@ -36,12 +38,33 @@ const UserAdd = () => {
   };
 
   const [email, setEmail] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleAddUser = () => {
-    axiosPrivate.post("/society/addUser", {
-      societyId: selectedId,
-      email: email,
-    });
+    axiosPrivate
+      .post("/society/addUser", {
+        societyId: selectedId,
+        email: email,
+      })
+      .then(() => {
+        setEmail("");
+        setSelectedId("");
+        setSuccess(true);
+        handleClose();
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.response.data.error);
+      });
+  };
+
+  const handleCloseSuccess = () => {
+    setSuccess(false);
+  };
+
+  const handleCloseError = () => {
+    setError("");
   };
 
   useEffect(() => {
@@ -87,10 +110,18 @@ const UserAdd = () => {
             />
           )}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleAddUser}>Add user to society</Button>
-        </DialogActions>
+        {selectedId && (
+          <DialogActions>
+            <Button onClick={handleAddUser}>Add user to society</Button>
+          </DialogActions>
+        )}
       </Dialog>
+      <Snackbar open={success} onClose={handleCloseSuccess}>
+        <Alert severity="success">User successfully added to society!</Alert>
+      </Snackbar>
+      <Snackbar open={Boolean(error)} onClose={handleCloseError}>
+        <Alert severity="error">{error}</Alert>
+      </Snackbar>
     </>
   );
 };
