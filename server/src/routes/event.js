@@ -15,7 +15,6 @@ Example query:
 */
 router.get('/get', async (req, res, next) => {
     try {
-    res.header("Access-Control-Allow-Origin", 'http://localhost:3000'); // Give access to front end server
     let items = await getEvents(req)
     console.log(req.username);
     if (items.length > 0) {
@@ -59,8 +58,13 @@ router.post('/add', async (req, res, next) => {
         if (!foundSociety.users.includes(req.userId) && authUser.dev !== true) {
             return res.status(403).send({ error : 'Auth user is not a member of the society' });
         }
-        let newEvent = req.body
-        newEvent.societyName = foundSociety.societyName
+        let newEvent = req.body;
+        // Add society color if color is not given
+        if (newEvent.color === undefined) {
+            newEvent.color = foundSociety.color;
+        }
+        // Add societyName to event
+        newEvent.societyName = foundSociety.societyName;
         await fomoEvents.insertOne(req.body)
         res.status(200).send({ message : 'Success'})
     } catch(err) {

@@ -10,17 +10,21 @@ import {
   DialogContentText,
   TextField,
   DialogActions,
+  FormGroup,
   FormControl,
   InputLabel,
   OutlinedInput,
   FormHelperText,
   Checkbox,
   FormControlLabel,
+  Select,
 } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
 import { flexbox } from "@mui/system";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { FaCalendarPlus } from "react-icons/fa";
+import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 const titleStyle = {
@@ -33,22 +37,51 @@ const EventAdd = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
+
     setTags([]);
   };
   const handleClose = () => {
     setOpen(false);
+
     setTags([]);
+
     console.log(inputs.description);
   };
   const [startTime, setStartTime] = useState(new Date(Date.now()));
   const [endTime, setEndTime] = useState(new Date(Date.now()));
   const [dateError, setDateError] = useState(false);
   const [tags, setTags] = useState([]);
+  const [tagNames, setTagNames] = useState([
+    "Networking",
+    "Workshop",
+    "Social",
+    "Free Food",
+    "Alcohol",
+    "Excursion",
+    "Online",
+    "In-person",
+    "Sports",
+    "Education",
+  ]);
+  const [societies, setSocieties] = useState([]);
   const [inputs, setInputs] = useState({
     eventName: "",
     description: "",
     societyId: "",
   });
+
+  useEffect(() => {
+    const getSocieties = async () => {
+      try {
+        const response = await axiosPrivate.get("/society/get/userIsMember");
+        setSocieties(response.data.societies);
+        console.log(response.data.societies);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getSocieties();
+  }, []);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -98,7 +131,7 @@ const EventAdd = () => {
     try {
       const response = await axiosPrivate.post("/event/add", {
         // TODO: GET THE SOCIETYID FROM A SOCIETY THAT THE USER IS ACTUALLY A PART OF
-        societyId: "62ff46bb7fd160728335e271",
+        societyId: inputs.societyId,
         eventName: inputs.eventName,
         start: startTime.getTime(),
         end: endTime.getTime(),
@@ -120,16 +153,38 @@ const EventAdd = () => {
     <div>
       <FaCalendarPlus onClick={handleOpen} />
       <Dialog open={open} onClose={handleClose}>
-        <Box sx={{ display: "flex", flexWrap: "wrap", padding: "30px" }}>
-          <h2 style={titleStyle}>Add Event</h2>
-          <FormControl fullWidth sx={{ m: 1 }}>
-            <TextField
-              label="Event Name"
-              placeholder="Event Name"
-              name="eventName"
-              onChange={handleChange}
-            />
-          </FormControl>
+        <Box sx={{ padding: "30px" }}>
+          <div>
+            <h2 style={titleStyle}>Add Event</h2>
+          </div>
+          <div>
+            <FormControl sx={{ m: 1, width: "72%" }}>
+              <TextField
+                label="Event Name"
+                placeholder="Event Name"
+                name="eventName"
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl sx={{ m: 1, width: "21.71%" }}>
+              <InputLabel id="select-label">Society</InputLabel>
+              <Select
+                labelId="select-label"
+                label="Society"
+                name="societyId"
+                onChange={handleChange}
+                value={inputs.societyId}
+              >
+                {societies.map((society, i) => {
+                  return (
+                    <MenuItem value={society._id}>
+                      {society.societyName}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </div>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <FormControl sx={{ m: 1, width: "46.95%" }}>
               <DateTimePicker
@@ -171,60 +226,21 @@ const EventAdd = () => {
             />
           </FormControl>
           {/* There's gotta be a better way to do this bit */}
-          <FormControlLabel
-            sx={{ m: 1 }}
-            label="Workshop"
-            control={<Checkbox name="Workshop" onClick={handleTagsChange} />}
-          />
-          <FormControlLabel
-            sx={{ m: 1 }}
-            label="Networking"
-            control={<Checkbox name="Networking" onClick={handleTagsChange} />}
-          />
-          <FormControlLabel
-            sx={{ m: 1 }}
-            label="Social"
-            control={<Checkbox name="Social" onClick={handleTagsChange} />}
-          />
-          <FormControlLabel
-            sx={{ m: 1 }}
-            label="Free Food"
-            control={<Checkbox name="Free Food" onClick={handleTagsChange} />}
-          />
-          <FormControlLabel
-            sx={{ m: 1 }}
-            label="Alcohol"
-            control={<Checkbox name="Alcohol" onClick={handleTagsChange} />}
-          />
-          <FormControlLabel
-            sx={{ m: 1 }}
-            label="Excursion"
-            control={<Checkbox name="Excursion" onClick={handleTagsChange} />}
-          />
-          <FormControlLabel
-            sx={{ m: 1 }}
-            label="Online"
-            control={<Checkbox name="Online" onClick={handleTagsChange} />}
-          />
-          <FormControlLabel
-            sx={{ m: 1 }}
-            label="In-person"
-            control={<Checkbox name="In-person" onClick={handleTagsChange} />}
-          />
-          <FormControlLabel
-            sx={{ m: 1 }}
-            label="Sports"
-            control={<Checkbox name="Sports" onClick={handleTagsChange} />}
-          />
-          <FormControlLabel
-            sx={{ m: 1 }}
-            label="Education"
-            control={<Checkbox name="Education" onClick={handleTagsChange} />}
-          />
+          {tagNames.map((tagName, i) => {
+            return (
+              <FormControlLabel
+                sx={{ m: 1 }}
+                label={tagName}
+                control={<Checkbox name={tagName} onClick={handleTagsChange} />}
+              />
+            );
+          })}
         </Box>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          {dateError === false && inputs.eventName !== "" ? (
+          {dateError === false &&
+          inputs.eventName !== "" &&
+          inputs.societyId !== "" ? (
             <Button onClick={handleSubmit}>Add</Button>
           ) : (
             <Button disabled={true}>Add</Button>

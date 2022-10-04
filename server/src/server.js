@@ -10,6 +10,7 @@ import { corsOptions } from './config/corsOptions.js';
 import { credentials } from './middleware/credentials.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+const PORT = process.env.PORT || 5000;
 
 // Setup database
 import {client, fomodb, fomoEvents, fomoSocieties, fomoUsers} from './database.js'
@@ -29,8 +30,8 @@ app.use('/user', userRoutes);
 
 
 // Start the server at port 5000
-app.listen(5000, async () => {
+app.listen(PORT, async () => {
     await client.connect()
     console.log('Server started!')
-    console.log('listening on port 5000')
+    console.log(`listening on port ${PORT}`)
 })
