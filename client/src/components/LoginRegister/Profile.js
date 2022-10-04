@@ -12,7 +12,6 @@ const Profile = () => {
   const axiosPrivate = useAxiosPrivate();
 
   const {user, showProfile, setShowProfile} = useContext(AdminContext);
-  console.log(user, showProfile)
   const username = user?.username;
 
   const logout = async () => {
@@ -26,7 +25,7 @@ const Profile = () => {
   }
 
   return (
-    <Dialog open={showProfile} onClose={() => {setShowProfile(false)}} PaperProps={{style: { borderRadius: '20px' }}}>
+    <Dialog open={showProfile ? showProfile : false} onClose={() => {setShowProfile(false)}} PaperProps={{style: { borderRadius: '20px' }}}>
       <div className={styles.container}>
         {/* TEXT */}
         <h1 className={styles.curview}>Currently Viewing</h1>

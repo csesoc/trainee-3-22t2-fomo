@@ -1,5 +1,7 @@
 import React from "react";
-import "./calendar.css"
+import './calendar.css';
+import styles from './Soc.module.css';
+import searchStyles from './SearchBar.module.css';
 
 import SocFollowing from './SocFollowing';
 import SearchBar from './SearchBar';
@@ -7,8 +9,10 @@ import TagFilter from './TagFilter';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import axios from "../config/axios";
-import env from "react-dotenv";
+
 import { Dialog, Box, Grid,  } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useState, useEffect } from 'react';
 import { getDate, format } from "date-fns";
 
@@ -118,16 +122,20 @@ const Calendar = () => {
 
   // Get all societies from db and sets fullSocList accordingly
   useEffect(() => {
-    fetch(env.FOMO_URL + "/society/getAll")
-    .then((response) => response.json())
-    .then((data) => {
-      setFullSocList(data)
-    });
+    const getSocs = async () => {
+      try {
+        const response = await axios.get('/society/getAll');
+        setFullSocList(response.data)
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    getSocs();
   }, []);
 
   // Add a society to the following box
   const addSociety = (id) => {
-    const newSoc = fullSocList.filter((society) => society.societyId === id)[0]
+    const newSoc = fullSocList.filter((society) => society._id === id)[0]
     if (!societies.includes(newSoc)) {
       setSocieties([...societies, newSoc])
     }
@@ -135,8 +143,29 @@ const Calendar = () => {
 
   // delete a society from following box
   const delSociety = (id) => {
-    setSocieties(societies.filter((society) => society.societyId !== id))
+    setSocieties(societies.filter((society) => society._id !== id))
   }
+
+  // all societies in the societies array are "chosen" (blue color) in the following box
+  useEffect(() => {
+    const socs = document.querySelectorAll(`.${styles.followSoc}`);
+    const searchMatches = document.querySelectorAll(`.${searchStyles.searchMatch}`);
+    const socNames = societies.map((society) => society.societyName);
+    for (const soc of socs) {
+      if (socNames.includes(soc.textContent)) {
+        soc.classList.add(`${styles.followSocActive}`);
+      } else {
+        soc.classList.remove(`${styles.followSocActive}`);
+      }
+    }
+    for (const match of searchMatches) {
+      if (socNames.includes(match.textContent)) {
+        match.classList.add(`${searchStyles.searchMatchActive}`);
+      } else {
+        match.classList.remove(`${searchStyles.searchMatchActive}`);
+      }
+    }
+  }, [societies]);
   
   // Update tag when clicked
   const updateTags = (tagName) => {
@@ -181,6 +210,14 @@ const Calendar = () => {
     setOpen(true)
 
   }
+
+  const theme = useTheme();
+  const showBig = useMediaQuery('(min-width:1024px)');
+  const showMedium = useMediaQuery('(min-width:426px) and (max-width:1023px)');
+  const showSmall = useMediaQuery('(max-width:425px)');
+  const showMedHeight = useMediaQuery('(min-height:380px) and (max-height:500px)');
+  const showSmallHeight = useMediaQuery('(max-height:380px)');
+
   return (
     <div>
     <Dialog open={open} onClose={handleClose}>
@@ -192,7 +229,8 @@ const Calendar = () => {
         <p style={{ whiteSpace: 'pre-line'}}>{displayInfo.description}</p>
       </Box>
     </Dialog>
-    <Grid container spacing={2} sx={{ padding: '15px' }}>
+    {/* ABOVE 1024PX */}
+    {showBig && !showMedHeight && !showSmallHeight && <Grid container spacing={2} sx={{ padding: '15px' }}>
       <Grid item xs={8}>
         <FullCalendar
           initialView="dayGridMonth"
@@ -202,13 +240,55 @@ const Calendar = () => {
         />
       </Grid>
       <Grid item xs={2}>
-        <SearchBar addSociety={addSociety} fullSocList={fullSocList}/>
-        <SocFollowing societies={fullSocList} delSociety={delSociety}/>
+        <div className={styles.socWrapper}>
+          <SearchBar addSociety={addSociety} fullSocList={fullSocList} delSociety={delSociety}/>
+          <SocFollowing societies={fullSocList} addSociety={addSociety} delSociety={delSociety}/>
+        </div>
       </Grid>
       <Grid item xs={2}>
         <TagFilter tags={tags} tagNames={tagNames} updateTags={updateTags}/>
       </Grid>
-    </Grid>
+    </Grid>}
+    {/* ABOVE 425PX OR HEIGHT LESS THAN 500PX */}
+    {(showMedium || showMedHeight) && !showSmallHeight && <Grid container spacing={2} sx={{ padding: '15px' }}>
+      <Grid item xs={12}>
+        <FullCalendar
+          initialView="dayGridMonth"
+          plugins={[dayGridPlugin]}
+          events={events}
+          eventClick={handleEventClick}
+        />
+      </Grid>
+      <Grid item xs={5}>
+        <div className={styles.socWrapper}>
+          <SearchBar addSociety={addSociety} fullSocList={fullSocList} delSociety={delSociety}/>
+          <SocFollowing societies={fullSocList} addSociety={addSociety} delSociety={delSociety}/>
+        </div>
+      </Grid>
+      <Grid item xs={7}>
+        <TagFilter tags={tags} tagNames={tagNames} updateTags={updateTags}/>
+      </Grid>
+    </Grid>}
+    {/* ANYTHING SMALLER */}
+    {(showSmall || showSmallHeight) && !showMedHeight && <Grid container spacing={2} sx={{ padding: '15px' }}>
+      <Grid item xs={12}>
+        <FullCalendar
+          initialView="dayGridMonth"
+          plugins={[dayGridPlugin]}
+          events={events}
+          eventClick={handleEventClick}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <div className={styles.socWrapper}>
+          <SearchBar addSociety={addSociety} fullSocList={fullSocList} delSociety={delSociety}/>
+          <SocFollowing societies={fullSocList} addSociety={addSociety} delSociety={delSociety}/>
+        </div>
+      </Grid>
+      <Grid item xs={12}>
+        <TagFilter tags={tags} tagNames={tagNames} updateTags={updateTags}/>
+      </Grid>
+    </Grid>}
     </div>
   )
 }

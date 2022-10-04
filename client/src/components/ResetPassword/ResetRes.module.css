@@ -70,3 +70,14 @@
 .regisText a {
     color: #2AFF25;
 }
+
+.passwordBarWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.eyeIcon {
+    position: absolute;
+    top: 8px;
+    right: 0;
+}

@@ -1,16 +1,18 @@
-import { FaTimes } from 'react-icons/fa'
-import './Soc.css'
+import styles from './Soc.module.css'
 
-const Soc = ({ society, delSociety }) => {
+const Soc = ({ society, addSociety, delSociety }) => {
 
   const onClick = (e) => {
-    e.currentTarget.classList.toggle('followSoc-active')
+    if (e.currentTarget.classList.length > 1) {
+      delSociety(society._id);
+    } else {
+      addSociety(society._id);
+    }
   }
     
   return (
-    <div className="followSoc" onClick={onClick}>
+    <div className={styles.followSoc} onClick={onClick}>
         <p>{society.societyName}</p>
-        <FaTimes onClick={() => delSociety(society.societyId)} size={20}/>
     </div>
   )
 }
