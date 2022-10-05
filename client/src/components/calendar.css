@@ -16,6 +16,10 @@
   background-color:rgb(0, 255, 85);
 }
 
+.fc-button-primary {
+  background-color: rgb(100,223,121) !important; 
+}
+
 /* .fc td[class*="other-month"] {
   color: #ffffff;
   background-color: bluevioslet;
@@ -29,7 +33,7 @@
 .fc { /* the calendar root */
 
   max-width: 1000px;
-  max-height: calc(100vh - 50px - 80px);
+  max-height: calc(100vh - 110px);
   margin: 0 auto;
   padding: 30px 0px 9px 9px;
 }

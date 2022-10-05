@@ -1,11 +1,13 @@
 import useAuth from "./useAuth";
+import env from "react-dotenv";
+
 
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
 
     const refresh = async () => {
         let accessToken = undefined;
-        await fetch("http://localhost:5000/refresh", {
+        await fetch(env.FOMO_URL + '/refresh', {
             method: "get",
             headers: {
               'Accept': 'application/json',

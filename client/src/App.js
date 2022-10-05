@@ -1,7 +1,7 @@
 import './App.css';
+import FrontGeneral from './components/NavBar/FrontGeneral'; 
 import Login from './components/LoginRegister/Login';
 import Register from './components/LoginRegister/Register';
-import FrontGeneral from './components/NavBar/FrontGeneral'
 import ResetReq from './components/ResetPassword/ResetReq';
 import ResetRes from './components/ResetPassword/ResetRes'; 
 import Layout from './components/Layout';

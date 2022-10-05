@@ -46,7 +46,7 @@ const ResetReq = () => {
       {/*INPUT - show based on success boolean*/}
       { !success && <div className={styles.input}>
 				{/* FAIL EMAIL NOT FOUND MESSAGE */}
-				<Alert severity='error' fullwidth sx={{ display: success === false ? 'flex': 'none'}}>
+				<Alert severity='error' sx={{ display: success === false ? 'flex': 'none'}}>
 					The given email is not associated with any account yet. <a href='http://localhost:3000/register'>Sign Up</a> instead?
 				</Alert>
         {/*EMAIL INPUT*/}
@@ -61,7 +61,7 @@ const ResetReq = () => {
       	</Button>
       </div> }
 			{/* SUCCESS MESSAGE */}
-			<Alert severity='success' fullwidth  sx={{ display: success ? 'flex': 'none', mt: '5%' }}>
+			<Alert severity='success'  sx={{ display: success ? 'flex': 'none', mt: '5%' }}>
 				Please check your email inbox for further instructions to reset your password
 			</Alert>
     </form>
