@@ -52,7 +52,7 @@ const ResetReq = () => {
             sx={{ display: success === false ? "flex" : "none" }}
           >
             The given email is not associated with any account yet.{" "}
-            <a href={env.FOMO_URL + "/register"}>Sign Up</a> instead?
+            <a href={"/register"}>Sign Up</a> instead?
           </Alert>
           {/*EMAIL INPUT*/}
           <div className={styles.miniInput}>

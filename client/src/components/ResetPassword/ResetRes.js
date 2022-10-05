@@ -62,7 +62,6 @@ const ResetRes = () => {
       setErr(
         "The link has expired. Please visit&nbsp;" +
           '<a href="' +
-          env.FOMO_URL +
           "/resetpasswordreq" +
           '">' +
           "here" +
@@ -147,7 +146,7 @@ const ResetRes = () => {
         sx={{ display: success ? "flex" : "none", mt: "5%" }}
       >
         Your password has been updated successfully. Click{" "}
-        <a href={env.FOMO_URL + "/login"}>here</a> to Login again.
+        <a href={"/login"}>here</a> to Login again.
       </Alert>
     </form>
   );

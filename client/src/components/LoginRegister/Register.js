@@ -71,7 +71,7 @@ const Register = () => {
         setErr("This username has been taken");
       } else if (err.response.data.error.includes("email")) {
         setErr(
-          `This email is associated with an existing account. &nbsp <a href='${env.FOMO_URL}/resetpasswordreq'>Forgot Password</a>`
+          `This email is associated with an existing account. &nbsp <a href='/resetpasswordreq'>Forgot Password</a>`
         );
       }
     }

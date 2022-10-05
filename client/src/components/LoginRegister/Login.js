@@ -62,7 +62,7 @@ const Login = () => {
           sx={{ display: success ? "none" : "flex", mt: "5%" }}
         >
           The username or password is incorrect.{" "}
-          <a href={env.FOMO_URL + "/resetpasswordreq"}>Forgot Password</a>
+          <a href={"/resetpasswordreq"}>Forgot Password</a>
         </Alert>
         {/*USERNAME INPUT*/}
         <div className={styles.miniInput}>
@@ -109,8 +109,8 @@ const Login = () => {
       {/*TEXT AT BOTTOM*/}
       <div className={styles.registerText}>
         <p className={styles.regisText}>
-          Or <a href={env.FOMO_URL + "/register"}>Create Your Account</a> now to
-          build your own personalised calendar!
+          Or <a href={"/register"}>Create Your Account</a> now to build your own
+          personalised calendar!
         </p>
       </div>
     </form>
