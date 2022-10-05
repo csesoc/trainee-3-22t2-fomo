@@ -70,7 +70,14 @@ Body should contain the following structure:
 */
 router.delete('/del', async (req, res, next) => {
     try {
-    await fomoEvents.deleteOne({ eventId: req.body.eventId })
+        console.log(req.query)
+        let event = await fomoEvents.findOne({ _id: ObjectId(req.query.eventId) })
+        console.log(event)
+
+    await fomoEvents.deleteOne({ _id: ObjectId(req.query.eventId) })
+
+
+
     res.status(200).send({ message: 'Success'})
     } catch(err) {
         next(err);

@@ -7,7 +7,7 @@ import axios from "../config/axios";
 
 import { Dialog, Box } from "@mui/material";
 import { useState, useEffect } from 'react';
-import { getDate, format } from "date-fns";
+import { format } from "date-fns";
 import EventRemove from './EventRemove';
 
 // For some reason, you can't style the color of text with hex. So we will need to convert it to rbg
@@ -77,7 +77,8 @@ const Calendar = () => {
       description: currEvent.description,
       start: startDate,
       end: endDate,
-      color: hexToRgb(displayColor)
+      color: hexToRgb(displayColor),
+      eventId: info.event.id
     }
     if (newDisplayInfo.description === '') {
       newDisplayInfo.description = 'No description :('
@@ -102,7 +103,7 @@ const Calendar = () => {
         <hr></hr>
         <p style={{ whiteSpace: 'pre-line'}}>{displayInfo.description}</p>
         <br />
-        <EventRemove />
+        <EventRemove eventId={displayInfo.eventId}/>
       </Box>
     </Dialog>
     </div>
