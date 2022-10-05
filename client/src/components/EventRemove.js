@@ -1,6 +1,9 @@
 import {useState} from 'react';
 import {Button, Box, Dialog, DialogContent, DialogActions }  from "@mui/material"
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 
 const EventRemove = ({eventId}) => {
@@ -19,15 +22,15 @@ const EventRemove = ({eventId}) => {
   return (
     <div> 
 
-      <Button onClick={handleOpen}>Delete</Button> 
+      <Button color="error" size="small" startIcon={<DeleteIcon />} onClick={handleOpen}>Delete</Button> 
       <Dialog open={open} onClose={handleClose}>
        
         <DialogContent>
           <Box sx={{ display: 'inline-block', flexWrap: 'wrap', padding: '30px' }}>  
             <h2>Are you sure?</h2>
             <DialogActions>
-              <Button style={{'color':'green', fontSize:38}}onClick={handleClose}>✗</Button>
-              <Button style={{'color':'green', fontSize:38}}onClick={deleteEvent}>✓</Button> 
+              <Button color="error" startIcon={<ThumbDownIcon/>} onClick={handleClose} />
+              <Button color="success" startIcon={<ThumbUpIcon/>} onClick={deleteEvent} />
             </DialogActions> 
           </Box>
         </DialogContent> 
