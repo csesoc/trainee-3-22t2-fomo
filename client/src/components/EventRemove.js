@@ -14,7 +14,7 @@ const EventRemove = ({eventId}) => {
     const response = await axiosPrivate.delete('/event/del?eventId=' + eventId)
     console.log(response);
     handleClose();
-  }
+  } 
 
   return (
     <div> 
