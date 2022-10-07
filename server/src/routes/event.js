@@ -110,18 +110,27 @@ Body should contain the following structure:
     tags: String[],
 }
 */
-router.post('/edit', async (req, res, next) => {
+router.put('/edit', async (req, res, next) => {
     try {
-       
-        let newEvent = req.body.newInfo;
-        // Add society color if color is not given
-        if (newEvent.color === undefined) {
-            newEvent.color = foundSociety.color;
+        // Check if user is a user of the society (can edit/add/remove events)
+        let events = await fomoEvents.find({ _id: ObjectId(req.body.eventId) }).toArray();
+        let societyId = events[0].societyId
+        let societies = await fomoSocieties.find({ _id: ObjectId(societyId) }).toArray();
+        let foundSociety = societies[0]
+        if (!foundSociety.users.includes(req.userId)) {
+            return res.status(403).send({ error : 'Auth user is not a member of the society' });
         }
 
-        // Add societyName to event
-        newEvent.societyName = foundSociety.societyName;
-        await fomoEvents.insertOne(newEvent)
+        await fomoEvents.updateOne( { _id: ObjectId(req.body.eventId) }, 
+            {
+                $set: { 
+                    eventName: req.body.eventName, 
+                    description: req.body.description, 
+                    start: req.body.start, 
+                    end: req.body.end, 
+                }
+            }
+        ); 
         res.status(200).send({ message : 'Success'})
     } catch(err) {
         next(err);

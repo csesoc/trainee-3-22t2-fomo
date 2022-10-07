@@ -32,7 +32,7 @@ const titleStyle = {
   margin: "10px",
 };
 
-const EventEdit = ({eventId, societyName, eventName, description, start, end, color}) => {
+const EventEdit = ({eventId, eventName, description, startObj, endObj}) => {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -48,8 +48,8 @@ const EventEdit = ({eventId, societyName, eventName, description, start, end, co
 
     console.log(inputs.description);
   };
-  const [startTime, setStartTime] = useState(new Date(Date.now()));
-  const [endTime, setEndTime] = useState(new Date(Date.now()));
+  const [startTime, setStartTime] = useState(startObj);
+  const [endTime, setEndTime] = useState(endObj);
   const [dateError, setDateError] = useState(false);
   const [tags, setTags] = useState([]);
   const [tagNames, setTagNames] = useState([
@@ -66,8 +66,8 @@ const EventEdit = ({eventId, societyName, eventName, description, start, end, co
   ]);
   const [societies, setSocieties] = useState([]);
   const [inputs, setInputs] = useState({
-    eventName: "",
-    description: "",
+    eventName: eventName,
+    description: description,
     societyId: "",
   });
 
@@ -130,16 +130,13 @@ const EventEdit = ({eventId, societyName, eventName, description, start, end, co
 
   const handleSubmit = async (e) => {
     try {
-      const response = await axiosPrivate.post("/event/edit", {
+      const response = await axiosPrivate.put("/event/edit", {
         eventId: eventId,
-        newInfo: {
-          societyId: inputs.societyId,
-          eventName: inputs.eventName,
-          start: startTime.getTime(),
-          end: endTime.getTime(),
-          description: inputs.description,
-          tags: tags
-        }
+        eventName: inputs.eventName,
+        start: startTime.getTime(),
+        end: endTime.getTime(),
+        description: inputs.description,
+        tags: tags
       });
       console.log("success");
       handleClose();
@@ -169,6 +166,7 @@ const EventEdit = ({eventId, societyName, eventName, description, start, end, co
                 placeholder="Event Name"
                 name="eventName"
                 onChange={handleChange}
+                value={inputs.eventName}
               />
             </FormControl>
             <FormControl sx={{ m: 1, width: "21.71%" }}>
@@ -228,6 +226,7 @@ const EventEdit = ({eventId, societyName, eventName, description, start, end, co
               rows={5}
               name="description"
               onChange={handleChange}
+              value={inputs.description}
             />
           </FormControl>
           {/* There's gotta be a better way to do this bit */}

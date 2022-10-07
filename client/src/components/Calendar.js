@@ -189,20 +189,24 @@ const Calendar = () => {
     let endDate = new Date()
     startDate.setTime(currEvent.start)
     endDate.setTime(currEvent.end)
+    let startStr;
+    let endStr;
     if (startDate.toDateString() === endDate.toDateString()) {
-      startDate = format(startDate, "dd/MM/yyyy h:mm aaaaa'm'")
-      endDate = format(endDate, "h:mm aaaaa'm'")
+      startStr = format(startDate, "dd/MM/yyyy h:mm aaaaa'm'")
+      endStr = format(endDate, "h:mm aaaaa'm'")
     } else {
-      startDate = format(startDate, "dd/MM/yyyy h:mm aaaaa'm'")
-      endDate = format(endDate, "dd/MM/yyyy h:mm aaaaa'm'")
+      startStr = format(startDate, "dd/MM/yyyy h:mm aaaaa'm'")
+      endStr = format(endDate, "dd/MM/yyyy h:mm aaaaa'm'")
     }
     let displayColor = currEvent.color !== undefined ? currEvent.color : "#000000"
     let newDisplayInfo = {
       societyName: currEvent.societyName,
       eventName: currEvent.eventName,
       description: currEvent.description,
-      start: startDate,
-      end: endDate,
+      start: startStr,
+      end: endStr,
+      startObj: startDate,
+      endObj: endDate,
       color: hexToRgb(displayColor),
       eventId: info.event.id
     }
@@ -238,8 +242,8 @@ const Calendar = () => {
             societyName={displayInfo.societyName}
             eventName={displayInfo.eventName}
             description={displayInfo.description}
-            start={displayInfo.start}
-            end={displayInfo.end}
+            startObj={displayInfo.startObj}
+            endObj={displayInfo.endObj}
             color={displayInfo.color}
           />
         </div>
