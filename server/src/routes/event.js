@@ -97,6 +97,36 @@ router.delete('/del', async (req, res, next) => {
     }
 })
 
+/*
+Edits an event from the database
+
+Body should contain the following structure:
+{
+    societyId: String,
+    eventName : String,
+    start: Integer,
+    end: Integer,
+    description : String,
+    tags: String[],
+}
+*/
+router.put('/edit', async (req, res, next) => {
+    try {
+        let events = await fomoEvents.find({ _id: ObjectId(eventId) }).toArray();
+        let societyId = events[0].societyId
+        let societies = await fomoSocieties.find({ _id: ObjectId(societyId) }).toArray();
+        let foundSociety = societies[0]
+        if (!foundSociety.users.includes(req.userId)) {
+            return res.status(403).send({ error : 'Auth user is not a member of the society' });
+        }
+        
+        await fomoEvents.updateOne({ _id: ObjectId(eventId) }, req.body);
+        res.status(200).send({ message: 'Success'})
+    } catch(err) {
+        next(err);
+    }
+})
+
 
 
 export { router as default }
