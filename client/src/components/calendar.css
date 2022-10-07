@@ -37,3 +37,8 @@
   margin: 0 auto;
   padding: 30px 0px 9px 9px;
 }
+
+.event-actions{
+  display: flex;
+  justify-content: space-evenly;
+}
