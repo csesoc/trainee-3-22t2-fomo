@@ -32,7 +32,7 @@ const titleStyle = {
   margin: "10px",
 };
 
-const EventEdit = () => {
+const EventEdit = ({eventId, societyName, eventName, description, start, end, color}) => {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -131,13 +131,15 @@ const EventEdit = () => {
   const handleSubmit = async (e) => {
     try {
       const response = await axiosPrivate.post("/event/edit", {
-        // TODO: GET THE SOCIETYID FROM A SOCIETY THAT THE USER IS ACTUALLY A PART OF
-        societyId: inputs.societyId,
-        eventName: inputs.eventName,
-        start: startTime.getTime(),
-        end: endTime.getTime(),
-        description: inputs.description,
-        tags: tags,
+        eventId: eventId,
+        newInfo: {
+          societyId: inputs.societyId,
+          eventName: inputs.eventName,
+          start: startTime.getTime(),
+          end: endTime.getTime(),
+          description: inputs.description,
+          tags: tags
+        }
       });
       console.log("success");
       handleClose();
@@ -158,7 +160,7 @@ const EventEdit = () => {
       <Dialog open={open} onClose={handleClose}>
         <Box sx={{ padding: "30px" }}>
           <div>
-            <h2 style={titleStyle}>Add Event</h2>
+            <h2 style={titleStyle}>Edit Event</h2>
           </div>
           <div>
             <FormControl sx={{ m: 1, width: "72%" }}>
@@ -244,9 +246,9 @@ const EventEdit = () => {
           {dateError === false &&
           inputs.eventName !== "" &&
           inputs.societyId !== "" ? (
-            <Button onClick={handleSubmit}>Add</Button>
+            <Button onClick={handleSubmit}>Edit</Button>
           ) : (
-            <Button disabled={true}>Add</Button>
+            <Button disabled={true}>Edit</Button>
           )}
         </DialogActions>
       </Dialog>

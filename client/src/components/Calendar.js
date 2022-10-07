@@ -233,7 +233,15 @@ const Calendar = () => {
         <br />
         <div className="event-actions">
           <EventRemove eventId={displayInfo.eventId}/>
-          <EventEdit />
+          <EventEdit 
+            eventId={displayInfo.eventId} 
+            societyName={displayInfo.societyName}
+            eventName={displayInfo.eventName}
+            description={displayInfo.description}
+            start={displayInfo.start}
+            end={displayInfo.end}
+            color={displayInfo.color}
+          />
         </div>
       </Box>
     </Dialog>
