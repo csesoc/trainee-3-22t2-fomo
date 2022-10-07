@@ -27,12 +27,12 @@ import { FaCalendarPlus } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 const titleStyle = {
   margin: "10px",
 };
 
-const EventEdit = ({eventId, eventName, description, startObj, endObj}) => {
+const EventEdit = ({ eventId, eventName, description, startObj, endObj }) => {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -136,7 +136,7 @@ const EventEdit = ({eventId, eventName, description, startObj, endObj}) => {
         start: startTime.getTime(),
         end: endTime.getTime(),
         description: inputs.description,
-        tags: tags
+        tags: tags,
       });
       console.log("success");
       handleClose();
@@ -160,7 +160,7 @@ const EventEdit = ({eventId, eventName, description, startObj, endObj}) => {
             <h2 style={titleStyle}>Edit Event</h2>
           </div>
           <div>
-            <FormControl sx={{ m: 1, width: "72%" }}>
+            <FormControl sx={{ m: 1, width: "100%" }}>
               <TextField
                 label="Event Name"
                 placeholder="Event Name"
@@ -168,24 +168,6 @@ const EventEdit = ({eventId, eventName, description, startObj, endObj}) => {
                 onChange={handleChange}
                 value={inputs.eventName}
               />
-            </FormControl>
-            <FormControl sx={{ m: 1, width: "21.71%" }}>
-              <InputLabel id="select-label">Society</InputLabel>
-              <Select
-                labelId="select-label"
-                label="Society"
-                name="societyId"
-                onChange={handleChange}
-                value={inputs.societyId}
-              >
-                {societies.map((society, i) => {
-                  return (
-                    <MenuItem value={society._id}>
-                      {society.societyName}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
             </FormControl>
           </div>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -242,9 +224,7 @@ const EventEdit = ({eventId, eventName, description, startObj, endObj}) => {
         </Box>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          {dateError === false &&
-          inputs.eventName !== "" &&
-          inputs.societyId !== "" ? (
+          {dateError === false && inputs.eventName !== "" ? (
             <Button onClick={handleSubmit}>Edit</Button>
           ) : (
             <Button disabled={true}>Edit</Button>
