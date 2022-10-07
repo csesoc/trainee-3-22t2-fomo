@@ -11,6 +11,6 @@ let fomoEvents = fomodb.collection('fomoEvents')
 let fomoSocieties = fomodb.collection('fomoSocieties')
 let fomoUsers = fomodb.collection('fomoUsers')
 let fomoResetTokens = fomodb.collection('fomoResetTokens')
-fomoResetTokens.createIndex( { "createdAt": 1 }, { expireAfterSeconds: 90 } )
+fomoResetTokens.createIndex( { "createdAt": 1 }, { expireAfterSeconds: 600 } )
 
 export {client, fomodb, fomoEvents, fomoSocieties, fomoUsers, fomoResetTokens}

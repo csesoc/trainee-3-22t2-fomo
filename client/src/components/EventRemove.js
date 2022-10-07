@@ -8,15 +8,22 @@ import { useNavigate } from 'react-router-dom';
 
 const EventRemove = ({eventId}) => {
   const axiosPrivate = useAxiosPrivate();
-
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => {setOpen(true)};
   const handleClose = () => {setOpen(false)};
+
  
   const deleteEvent = async (e) => {
-    const response = await axiosPrivate.delete('/event/del?eventId=' + eventId)
-    console.log(response);
-    handleClose();
+    try {
+      const response = await axiosPrivate.post("/event/del", {eventId: eventId });
+      console.log("success");
+      handleClose();
+    } catch (err) {
+      if (err.response.status === 403 || err.response.status === 401) {
+        navigate("/login");
+      }
+    }
   } 
 
   return (

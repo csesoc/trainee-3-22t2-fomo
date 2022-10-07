@@ -80,22 +80,14 @@ Body should contain the following structure:
     eventId: string,
 }
 */
-router.delete('/del', async (req, res, next) => {
+router.post("/del", async (req, res) => {
     try {
-    // Check if user is a user of the society (can edit/add/remove events)
-    let events = await fomoEvents.find({ _id: ObjectId(eventId) }).toArray();
-    let societyId = events[0].societyId
-    let societies = await fomoSocieties.find({ _id: ObjectId(societyId) }).toArray();
-    let foundSociety = societies[0]
-    if (!foundSociety.users.includes(req.userId)) {
-        return res.status(403).send({ error : 'Auth user is not a member of the society' });
+      await fomoEvents.deleteOne({ _id: ObjectId(req.body.eventId) });
+      res.status(200).send({ message: "Success" });
+    } catch (err) {
+      next(err);
     }
-    await fomoEvents.deleteOne({ _id: ObjectId(eventId) });
-    res.status(200).send({ message: 'Success'})
-    } catch(err) {
-        next(err);
-    }
-})
+});
 
 /*
 Edits an event from the database
